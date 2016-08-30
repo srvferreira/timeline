@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relDetalhado" pageWidth="1300" pageHeight="792" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1260" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f0c4431f-714a-454c-8b66-8dd64974945c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="data_inicial" class="java.lang.String"/>
+	<parameter name="data_final" class="java.lang.String"/>
+	<parameter name="nome_empresa" class="java.lang.String"/>
+	<parameter name="endereco_empresa" class="java.lang.String"/>
+	<parameter name="cnpj_empresa" class="java.lang.String"/>
+	<parameter name="fone_empresa" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="cod_bem" class="java.lang.String">
+		<fieldDescription><![CDATA[cod_bem]]></fieldDescription>
+	</field>
+	<field name="conta" class="java.lang.String">
+		<fieldDescription><![CDATA[conta]]></fieldDescription>
+	</field>
+	<field name="ct_resultado" class="java.lang.String">
+		<fieldDescription><![CDATA[ct_resultado]]></fieldDescription>
+	</field>
+	<field name="data_ativacao" class="java.util.Date">
+		<fieldDescription><![CDATA[data_ativacao]]></fieldDescription>
+	</field>
+	<field name="dep_ac" class="java.lang.Float">
+		<fieldDescription><![CDATA[dep_ac]]></fieldDescription>
+	</field>
+	<field name="dep_acumulada" class="java.lang.Float">
+		<fieldDescription><![CDATA[dep_acumulada]]></fieldDescription>
+	</field>
+	<field name="dep_periodo" class="java.lang.Float">
+		<fieldDescription><![CDATA[dep_periodo]]></fieldDescription>
+	</field>
+	<field name="estado_conservacao" class="java.lang.String">
+		<fieldDescription><![CDATA[estado_conservacao]]></fieldDescription>
+	</field>
+	<field name="fonte_recurso" class="java.lang.String">
+		<fieldDescription><![CDATA[fonte_recurso]]></fieldDescription>
+	</field>
+	<field name="impairment" class="java.lang.Float">
+		<fieldDescription><![CDATA[impairment]]></fieldDescription>
+	</field>
+	<field name="localizacao" class="java.lang.String">
+		<fieldDescription><![CDATA[localizacao]]></fieldDescription>
+	</field>
+	<field name="reavaliacao" class="java.lang.Float">
+		<fieldDescription><![CDATA[reavaliacao]]></fieldDescription>
+	</field>
+	<field name="tipo_bem" class="java.lang.String">
+		<fieldDescription><![CDATA[tipo_bem]]></fieldDescription>
+	</field>
+	<field name="vl_atual" class="java.lang.Float">
+		<fieldDescription><![CDATA[vl_atual]]></fieldDescription>
+	</field>
+	<field name="vl_bem" class="java.lang.Float">
+		<fieldDescription><![CDATA[vl_bem]]></fieldDescription>
+	</field>
+	<field name="vl_entrada" class="java.lang.Float">
+		<fieldDescription><![CDATA[vl_entrada]]></fieldDescription>
+	</field>
+	<field name="vl_liquido" class="java.lang.Float">
+		<fieldDescription><![CDATA[vl_liquido]]></fieldDescription>
+	</field>
+	<variable name="vl_liquido_1" class="java.lang.Float" resetType="Group" resetGroup="conta" calculation="Sum">
+		<variableExpression><![CDATA[$F{vl_liquido}]]></variableExpression>
+	</variable>
+	<variable name="vl_liquido_2" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{vl_liquido}]]></variableExpression>
+	</variable>
+	<variable name="vl_bem_1" class="java.lang.Float" resetType="Group" resetGroup="conta" calculation="Sum">
+		<variableExpression><![CDATA[$F{vl_bem}]]></variableExpression>
+	</variable>
+	<variable name="dep_periodo_1" class="java.lang.Float" resetType="Group" resetGroup="conta" calculation="Sum">
+		<variableExpression><![CDATA[$F{dep_periodo}]]></variableExpression>
+	</variable>
+	<variable name="dep_acumulada_1" class="java.lang.Float" resetType="Group" resetGroup="conta" calculation="Sum">
+		<variableExpression><![CDATA[$F{dep_acumulada}]]></variableExpression>
+	</variable>
+	<variable name="dep_acumulada_2" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{dep_acumulada}]]></variableExpression>
+	</variable>
+	<variable name="dep_periodo_2" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{dep_periodo}]]></variableExpression>
+	</variable>
+	<variable name="vl_bem_2" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{vl_bem}]]></variableExpression>
+	</variable>
+	<variable name="impairment_1" class="java.lang.Float" resetType="Group" resetGroup="conta" calculation="Sum">
+		<variableExpression><![CDATA[$F{impairment}]]></variableExpression>
+	</variable>
+	<variable name="reavaliacao_1" class="java.lang.Float" resetType="Group" resetGroup="conta" calculation="Sum">
+		<variableExpression><![CDATA[$F{reavaliacao}]]></variableExpression>
+	</variable>
+	<variable name="impairment_2" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{impairment}]]></variableExpression>
+	</variable>
+	<variable name="reavaliacao_2" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{reavaliacao}]]></variableExpression>
+	</variable>
+	<variable name="vl_entrada_1" class="java.lang.Float" resetType="Group" resetGroup="conta" calculation="Sum">
+		<variableExpression><![CDATA[$F{vl_entrada}]]></variableExpression>
+	</variable>
+	<variable name="vl_entrada_2" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{vl_entrada}]]></variableExpression>
+	</variable>
+	<variable name="vl_bem_3" class="java.lang.Float" resetType="Group" resetGroup="conta" calculation="Sum">
+		<variableExpression><![CDATA[$F{vl_bem}]]></variableExpression>
+	</variable>
+	<variable name="vl_bem_4" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{vl_bem}]]></variableExpression>
+	</variable>
+	<variable name="dep_ac_1" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{dep_ac}]]></variableExpression>
+	</variable>
+	<variable name="vl_bem_5" class="java.lang.Float" resetType="Group" resetGroup="conta" calculation="Sum">
+		<variableExpression><![CDATA[$F{vl_bem}]]></variableExpression>
+	</variable>
+	<variable name="vl_bem_6" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{vl_bem}]]></variableExpression>
+	</variable>
+	<variable name="dep_ac_2" class="java.lang.Float" resetType="Group" resetGroup="conta" calculation="Sum">
+		<variableExpression><![CDATA[$F{dep_ac}]]></variableExpression>
+	</variable>
+	<variable name="impairment_3" class="java.lang.Float" resetType="Group" resetGroup="conta" calculation="Sum">
+		<variableExpression><![CDATA[$F{impairment}]]></variableExpression>
+	</variable>
+	<variable name="impairment_4" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{impairment}]]></variableExpression>
+	</variable>
+	<variable name="reavaliacao_3" class="java.lang.Float" resetType="Group" resetGroup="conta" calculation="Sum">
+		<variableExpression><![CDATA[$F{reavaliacao}]]></variableExpression>
+	</variable>
+	<variable name="reavaliacao_4" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{reavaliacao}]]></variableExpression>
+	</variable>
+	<variable name="vl_bem_7" class="java.lang.Float" resetType="Group" resetGroup="conta" calculation="Sum">
+		<variableExpression><![CDATA[$F{vl_bem}]]></variableExpression>
+	</variable>
+	<variable name="vl_bem_8" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{vl_bem}]]></variableExpression>
+	</variable>
+	<variable name="dep_periodo_3" class="java.lang.Float" resetType="Group" resetGroup="conta" calculation="Sum">
+		<variableExpression><![CDATA[$F{dep_periodo}]]></variableExpression>
+	</variable>
+	<variable name="dep_periodo_4" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{dep_periodo}]]></variableExpression>
+	</variable>
+	<variable name="dep_acumulada_3" class="java.lang.Float" resetType="Group" resetGroup="conta" calculation="Sum">
+		<variableExpression><![CDATA[$F{dep_acumulada}]]></variableExpression>
+	</variable>
+	<variable name="dep_acumulada_4" class="java.lang.Float" resetType="Group" resetGroup="conta" calculation="Sum">
+		<variableExpression><![CDATA[$F{dep_acumulada}]]></variableExpression>
+	</variable>
+	<variable name="dep_acumulada_5" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{dep_acumulada}]]></variableExpression>
+	</variable>
+	<variable name="vl_bem_9" class="java.lang.Float" resetType="Group" resetGroup="conta" calculation="Sum">
+		<variableExpression><![CDATA[$F{vl_bem}]]></variableExpression>
+	</variable>
+	<variable name="vl_bem_10" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{vl_bem}]]></variableExpression>
+	</variable>
+	<group name="conta" keepTogether="true">
+		<groupExpression><![CDATA[$F{conta}]]></groupExpression>
+		<groupHeader>
+			<band height="30">
+				<rectangle>
+					<reportElement uuid="8a9a3dc7-383e-408a-b007-6d2de5740ac4" x="0" y="0" width="1260" height="22" backcolor="#EFEFEF"/>
+					<graphicElement>
+						<pen lineWidth="0.0"/>
+					</graphicElement>
+				</rectangle>
+				<line>
+					<reportElement uuid="35d8adf5-f7bf-4de6-8962-92ff96823ba3" x="321" y="0" width="1" height="22"/>
+					<graphicElement>
+						<pen lineWidth="2.0" lineColor="#FFFFFF"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement uuid="35d8adf5-f7bf-4de6-8962-92ff96823ba3" x="845" y="0" width="1" height="22"/>
+					<graphicElement>
+						<pen lineWidth="2.0" lineColor="#FFFFFF"/>
+					</graphicElement>
+				</line>
+				<textField>
+					<reportElement uuid="b24afa0a-2135-4c4e-86ac-7a6f17a8860e" x="0" y="1" width="400" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Conta Contábil - " + $F{conta}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="30">
+				<textField>
+					<reportElement uuid="746ac511-664f-45f6-9020-e4555393100e" x="0" y="5" width="100" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["SUBTOTAIS"]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="6b34f829-8fc3-458e-8f43-67d959b8cf4c" x="0" y="29" width="1260" height="1"/>
+					<graphicElement>
+						<pen lineWidth="2.0" lineStyle="Solid"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement uuid="6b34f829-8fc3-458e-8f43-67d959b8cf4c" x="0" y="0" width="1260" height="1"/>
+					<graphicElement>
+						<pen lineWidth="2.0" lineStyle="Solid"/>
+					</graphicElement>
+				</line>
+				<textField pattern="#,##0.00">
+					<reportElement uuid="57fb6b07-42f2-43f8-bf18-ab390678f47a" x="1141" y="5" width="105" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( ($V{vl_bem_3} - $V{dep_ac_2} - $V{impairment_3} + $V{reavaliacao_3} - $V{dep_acumulada_4}) == 0 ? "-" : ($V{vl_bem_3} - $V{dep_ac_2} - $V{impairment_3} + $V{reavaliacao_3} - $V{dep_acumulada_4}) )]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement uuid="6c2b3c4c-5985-4552-98c7-a4557e712fa4" x="1039" y="5" width="100" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( $V{dep_acumulada_4} == 0 ? "-" : $V{dep_acumulada_4} )]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement uuid="df6da252-b8e3-4499-a7a5-07a78e8ae97d" x="667" y="5" width="100" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( $V{impairment_3} == 0 ? "-" : $V{impairment_3} )]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement uuid="a275047b-9c7b-4cf1-8839-75a290c2a824" x="455" y="5" width="100" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( $V{dep_ac_2} == 0 ? "-" : $V{dep_ac_2} )]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement uuid="19b5a70e-0bd4-43bb-9260-40b43441bb6d" x="874" y="5" width="105" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( ($V{vl_bem_3} - $V{dep_ac_2} - $V{impairment_3} + $V{reavaliacao_3}) == 0 ? "-" : ($V{vl_bem_3} - $V{dep_ac_2} - $V{impairment_3} + $V{reavaliacao_3}) )]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement uuid="91679880-8cc0-4370-907d-ddd9ffeade4e" x="981" y="5" width="100" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( $V{dep_periodo_3} == 0 ? "-" : $V{dep_periodo_3} )]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement uuid="4029931d-c00a-4385-98e1-1cbdf454e25d" x="772" y="5" width="100" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( $V{reavaliacao_3} == 0 ? "-" : $V{reavaliacao_3} )]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement uuid="ac358a08-7b15-4fb2-abfa-3f351a6518fc" x="240" y="5" width="105" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle" markup="styled">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( $V{vl_entrada_1} == 0 ? "-" : $V{vl_entrada_1} )]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Auto" pattern="#,##0.00">
+					<reportElement uuid="59205238-62fe-41f8-8799-56273b26a31c" x="557" y="5" width="105" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( ($V{vl_bem_3} - $V{dep_ac_2}) == 0 ? "-" : ($V{vl_bem_3} - $V{dep_ac_2}) )]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement uuid="194e0b3e-df22-4754-8e74-fa4d7059fd15" x="346" y="5" width="105" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[( $V{vl_bem_3} == 0 ? "-" : $V{vl_bem_3} )]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="128" splitType="Stretch">
+			<textField>
+				<reportElement uuid="5c9a4b2b-42bb-48a6-9ee2-1f804cf9f9b4" x="128" y="4" width="442" height="30"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Relatório Contábil de Bens - Analítico"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8c813da5-e668-42e0-98e4-82b784413c55" x="128" y="90" width="270" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{fone_empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ad7ed5b4-eb8c-4fdd-9f1a-50ec2d535296" x="128" y="52" width="824" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{endereco_empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4ca23ef6-8253-4aee-85be-1757c9c6d9c2" x="128" y="71" width="269" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{cnpj_empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ff27ef65-4b18-4c02-ac3f-19c7a673b8f6" x="128" y="33" width="824" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nome_empresa}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="d84279cc-7fab-4a48-be45-04bf01b12f66" x="0" y="0" width="121" height="110"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="94" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="8a9a3dc7-383e-408a-b007-6d2de5740ac4" x="0" y="63" width="1260" height="30" backcolor="#CCCCCC"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement uuid="dfa71510-9230-43c1-8b3f-7e34dad34e69" x="2" y="15" width="53" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Período:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2cf3e980-e856-4e33-b545-116e71ae73ec" x="58" y="15" width="75" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{data_inicial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="dfa71510-9230-43c1-8b3f-7e34dad34e69" x="138" y="15" width="32" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Até"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c9d2ff67-eca8-45f8-b5c2-18b7a09efa9c" x="175" y="15" width="75" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{data_final}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="dd9e5d96-2f37-41ff-b3c9-adea696abf53" x="640" y="68" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[IMPAIRMENT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e26f51a1-c326-4948-940c-ee058a1d7632" x="742" y="68" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[REAVALIAÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="10e2741e-c05b-44cd-85e8-847e55622eef" x="426" y="63" width="105" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[DEP.AC.
+(Pré-Avaliação)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0cada473-3b3f-4183-8751-a4f4a634b762" x="953" y="68" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[DEP. PERÍODO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="10e2741e-c05b-44cd-85e8-847e55622eef" x="324" y="63" width="105" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR
+(Avaliação Anterior)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9a4871d0-ba24-4b22-a13d-b493fe4126ec" x="1055" y="68" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="false"/>
+				</textElement>
+				<text><![CDATA[DEP. AC.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="f59927f2-8753-4ff7-b313-3a10d7e60d81" x="533" y="63" width="105" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["BASE DE AVALIAÇÃO"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="56479701-9018-415c-a8c6-4fc4d3ec72ec" x="1157" y="68" width="105" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VR. CONT. LIQ.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="10e2741e-c05b-44cd-85e8-847e55622eef" x="213" y="63" width="105" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR
+(Entrada)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="10e2741e-c05b-44cd-85e8-847e55622eef" x="845" y="63" width="105" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR
+(Pós-Avaliação)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7ba57d44-6119-45f3-aa30-6234e81855fc" x="0" y="68" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOMBAMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5f7d896f-9614-4e73-99a3-f986543437b9" x="82" y="68" width="129" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="49b76748-b7c3-4b07-9e67-88081966cc13" x="10" y="41" width="100" height="20" forecolor="#666666"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Dados Originais]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="49b76748-b7c3-4b07-9e67-88081966cc13" x="334" y="41" width="258" height="20" forecolor="#666666"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Apuração da Reavaliação/Impairment Ocorrida no Período]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="49b76748-b7c3-4b07-9e67-88081966cc13" x="857" y="41" width="258" height="20" forecolor="#666666"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Apuração do Valor Contábil Líquido]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="16f7bfcd-6dd7-447b-9a2c-e5d0e95df0ae" x="330" y="58" width="505" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dotted" lineColor="#CC0000"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement uuid="16f7bfcd-6dd7-447b-9a2c-e5d0e95df0ae" x="854" y="58" width="395" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dotted" lineColor="#CC0000"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement uuid="16f7bfcd-6dd7-447b-9a2c-e5d0e95df0ae" x="8" y="58" width="300" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dotted" lineColor="#CC0000"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement uuid="867742d3-488d-4cba-b775-1bc68fc69da4" x="321" y="63" width="1" height="30"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement uuid="867742d3-488d-4cba-b775-1bc68fc69da4" x="845" y="63" width="1" height="30"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement uuid="dc2f548c-9c9e-411c-ba09-fdcfc5af66da" x="0" y="1" width="80" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cod_bem}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="316cbb10-a4cc-4f7d-914b-8d3f676aff01" x="82" y="1" width="129" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tipo_bem}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="b8ef7d1f-b7ba-4795-91cc-412852db287b" positionType="FixRelativeToBottom" x="0" y="20" width="1260" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dotted" lineColor="#000000"/>
+				</graphicElement>
+			</line>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="de962377-7564-4849-8113-a2e14b48b668" x="409" y="1" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $F{dep_ac} == 0 ? "-" : $F{dep_ac} )]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="9b23a33c-c49f-48ce-8b35-f43be506f1c8" x="1037" y="1" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{dep_acumulada} == 0 ? "-" : $F{dep_acumulada})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="d34ade82-56be-45fe-9a7e-545fc35ef4cc" x="726" y="1" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $F{reavaliacao} == 0 ? "-" : $F{reavaliacao} )]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="260aa0cc-e135-4ddb-9380-dbffbf73cd6b" x="935" y="1" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $F{dep_periodo} == 0 ? "-" : $F{dep_periodo} )]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="3157db7e-0629-4cbe-8ee6-29b0a16063a5" x="511" y="1" width="105" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( ($F{vl_bem} - $F{dep_ac}) == 0 ? "-" : ($F{vl_bem} - $F{dep_ac}) )]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="1cc93e3e-0ff6-4fef-8a99-ef9578aeafc3" x="194" y="1" width="105" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $F{vl_entrada} == 0 ? "-" : $F{vl_entrada} )]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="05b65e35-b3df-4c34-ac66-f85d7183b6a2" x="300" y="1" width="105" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $F{vl_bem} == 0 ? "-" : $F{vl_bem} )]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="54793744-8264-48e0-91d9-02cc518e61bd" x="1139" y="1" width="105" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( ($F{vl_bem} - $F{dep_ac} - $F{impairment} + $F{reavaliacao} - $F{dep_acumulada}) == 0 ? "-" : ($F{vl_bem} - $F{dep_ac} - $F{impairment} + $F{reavaliacao} - $F{dep_acumulada}) )]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="21be855c-3def-4b7e-8b1c-9595ce26464b" x="828" y="1" width="105" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( ($F{vl_bem} - $F{dep_ac} - $F{impairment} + $F{reavaliacao}) == 0 ? "-" : ($F{vl_bem} - $F{dep_ac} - $F{impairment} + $F{reavaliacao}) )]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="d566e578-f249-4e09-99d0-75ac3b88b300" x="621" y="1" width="100" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $F{impairment} == 0 ? "-" : $F{impairment} )]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="31" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="9124629f-aa40-493e-b4a7-0d86273001f0" x="1218" y="10" width="40" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e693026d-2fc4-4c90-9c85-645e8caf8218" x="1138" y="10" width="80" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd &apos; de &apos; MMMMM &apos; de &apos; yyyy">
+				<reportElement uuid="1ef6f6f7-f32b-4fde-850d-dce9f03c7449" x="224" y="1" width="136" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8add0caa-3f4a-41ce-beb5-6e5a47bb448f" x="1" y="1" width="224" height="20"/>
+				<textElement/>
+				<text><![CDATA[Documento Impresso pelo sistema Timeline em:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="21" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="a3bfe222-1227-4951-8e02-0230b26ef420" x="-2" y="-1" width="1260" height="22" forecolor="#333333" backcolor="#CC0000"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement uuid="769dacdd-c3de-4911-b61a-ae6624642657" x="0" y="1" width="119" height="20" forecolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TOTAIS"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="3aef6410-5a2a-4f3f-89e0-fac8e588cac6" x="208" y="1" width="105" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $V{vl_entrada_2} == 0 ? "-" : $V{vl_entrada_2} )]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="14232783-4a7b-44af-98cb-85651ba7a497" x="314" y="1" width="105" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $V{vl_bem_4} == 0 ? "-" : $V{vl_bem_4} )]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="03071538-6784-43bc-960c-15a63a45bf8b" x="423" y="1" width="100" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $V{dep_ac_1} == 0 ? "-" : $V{dep_ac_1} )]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="a35064d1-1ae7-4d21-9cd3-a6e9e789e438" x="525" y="1" width="105" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( ($V{vl_bem_4} - $V{dep_ac_1}) == 0 ? "-" : ($V{vl_bem_4} - $V{dep_ac_1}) )]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="5feed657-dbb0-4c33-8b52-b059bb012bae" x="635" y="1" width="100" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $V{impairment_4} == 0 ? "-" : $V{impairment_4} )]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="b4ad529d-2d47-437e-ab61-7c52d1b44b9a" x="724" y="1" width="100" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $V{reavaliacao_4} == 0 ? "-" : $V{reavaliacao_4} )]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="e747d751-3a8f-4391-8197-3a56611e085e" x="826" y="0" width="105" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( ($V{vl_bem_4} - $V{dep_ac_1} - $V{impairment_4} + $V{reavaliacao_4}) == 0 ? "-" : ($V{vl_bem_4} - $V{dep_ac_1} - $V{impairment_4} + $V{reavaliacao_4}) )]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="547db799-f381-49c2-8442-10a40e67e964" x="933" y="1" width="100" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $V{dep_periodo_4} == 0 ? "-" : $V{dep_periodo_4} )]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="4074f1f2-1428-4438-8ef6-f02e9a8b3d31" x="1035" y="1" width="100" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[( $V{dep_acumulada_5} == 0 ? "-" : $V{dep_acumulada_5} )]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="4e3f8594-2016-480e-a43e-6b3ff7120bf0" x="1137" y="1" width="105" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( ($V{vl_bem_4} - $V{dep_ac_1} - $V{impairment_4} + $V{reavaliacao_4} - $V{dep_acumulada_5}) == 0 ? "-" : ($V{vl_bem_4} - $V{dep_ac_1} - $V{impairment_4} + $V{reavaliacao_4} - $V{dep_acumulada_5}))]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="dd516c2e-21dc-4327-badb-e84d8b198743" x="321" y="-1" width="1" height="22"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement uuid="dd516c2e-21dc-4327-badb-e84d8b198743" x="845" y="-1" width="1" height="22"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+       xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+    <link rel="icon" type="image/png" href="img/favicon.png"/>
+		<title>Timeline - Sistema de Gestão Patrimonial</title>
+        <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
+        <script src="resources/js/modernizr.custom.63321.js"></script>
+        <!--[if lte IE 7]><style>.main{display:none;} .support-note .note-ie{display:block;}</style><![endif]-->
+		<style>
+			body {
+				background: #e1c192 url(resources/img/bg3.jpg);
+			}
+		</style>
+		
+		
+    </h:head>
+    
+    <h:body>
+        <div class="container">
+		
+			
+			<header>
+			
+				<h:graphicImage name="logo.png" library="img"/>
+				<h2>Timeline - Sistema de Gestão Patrimonial</h2>
+				
+			</header>
+			
+			<section >
+				<h:form styleClass="form-2" id="form_login">
+				<p:messages id="msgEmpresa" showDetail="true" autoUpdate="true" closable="true"/>
+					<h1><span class="log-in">Entrar</span> ou <span class="sign-up">Registrar</span></h1>
+					<p class="float">
+						<label for="login"><i class="icon-user"></i>usuário</label>
+						<p:inputText id="logarUser" name="login" placeholder="E-mail" value="#{loginMB.usuario}"/>
+					</p>
+					<p class="float">
+						<label for="password"><i class="icon-lock"></i>Senha</label>
+						<p:inputText id="logarSenha" type="password" name="password" placeholder="Senha" styleClass="showpassword" value="#{loginMB.senha}"/>
+					</p>
+					<p class="clearfix"> 
+						<h:button styleClass="log-twitter" value="Novo Cadastro" outcome="novaEmpresa"/>  
+						<p:commandButton name="submit" id="btnDefault" value="Entrar" action="#{loginMB.validarUsuario}"/>
+					</p>
+					
+					
+					
+					<p:defaultCommand target=":form_login:btnDefault"/>
+				</h:form>​​
+			</section>
+			
+        </div>
+		<!-- jQuery if needed -->
+        <h:outputScript library="primefaces" name="jquery/jquery.js" />
+		<script type="text/javascript">
+			$(function(){
+			    $(".showpassword").each(function(index,input) {
+			        var $input = $(input);
+			        $("<p class='opt'/>").append(
+			            $("<input type='checkbox' class='showpasswordcheckbox' id='showPassword' />").click(function() {
+			                var change = $(this).is(":checked") ? "text" : "password";
+			                var rep = $("<input placeholder='Password' type='" + change + "' />")
+			                    .attr("id", $input.attr("id"))
+			                    .attr("name", $input.attr("name"))
+			                    .attr('class', $input.attr('class'))
+			                    .val($input.val())
+			                    .insertBefore($input);
+			                $input.remove();
+			                $input = rep;
+			             })
+			        ).append($("<label for='showPassword'/>").text("Show password")).insertAfter($input.parent());
+			    });
+
+			    $('#showPassword').click(function(){
+					if($("#showPassword").is(":checked")) {
+						$('.icon-lock').addClass('icon-unlock');
+						$('.icon-unlock').removeClass('icon-lock');    
+					} else {
+						$('.icon-unlock').addClass('icon-lock');
+						$('.icon-lock').removeClass('icon-unlock');
+					}
+			    });
+			});
+		</script>
+		
+		
+    </h:body>
+</html>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/template/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+
+<ui:define name="conteudo">
+<h:form id="form_gtrans" prependId="false">
+<p:messages showDetail="true" id="msg_gtrans" closable="true"/>
+<p:panel header="TRANSFERÊNCIAS PENDENTES">
+<p:dataTable value="#{transMB.listaTransferenciasPendentes}" var="listap">
+
+<p:column headerText="Protocolo">
+	<h:outputText value="#{listap.protocolo}"/>
+</p:column>
+
+<p:column headerText="Data">
+	<h:outputText value="#{listap.data_transferencia}">
+		<f:convertDateTime pattern="dd/MM/yyyy"/>
+	</h:outputText>
+</p:column>
+
+
+<p:column headerText="Tombamento">
+	<h:outputText value="#{listap.cod_bem}"/>
+</p:column>
+
+<p:column headerText="Ctro. Origem">
+	<h:outputText value="#{listap.ct_resultado_origem}"/>
+</p:column>
+
+<p:column headerText="Localização origem">
+	<h:outputText value="#{listap.localizacao_origem}"/>
+</p:column>
+
+<p:column headerText="Respo. Origem">
+	<h:outputText value="#{listap.responsavel_origem}"/>
+</p:column>
+
+<p:column headerText="Ctro. Destino">
+	<h:outputText value="#{listap.ct_resultado_destino}"/>
+</p:column>
+
+<p:column headerText="Localização Destino">
+	<h:outputText value="#{listap.localizacao_destino}"/>
+</p:column>
+
+<p:column headerText="Respo. Destino">
+	<h:outputText value="#{listap.responsabel_destino}"/>
+</p:column>
+
+<p:column headerText="Ações">
+    <p:panelGrid columns="4">
+    
+    <p:commandButton title="Gerar Relatório" icon="ui-icon-clipboard" style="width: 24px; height: 24px;" actionListener="#{transMB.gerarRelatorio}"
+                       ajax="false">
+		<f:setPropertyActionListener target="#{transMB.finalizarTrans}" value="#{listap}"/>
+	</p:commandButton>
+	
+	<p:commandButton title="ACEITAR" icon="ui-icon-check" style="width: 24px; height: 24px;" oncomplete="PF('dlgAceitarTrans').show()">
+		<f:setPropertyActionListener target="#{transMB.finalizarTrans}" value="#{listap}"/>
+	</p:commandButton>
+	
+	<p:commandButton title="NEGAR" icon="ui-icon-closethick" style="width: 24px; height: 24px;" oncomplete="PF('dlgNegarTrans').show()">
+		<f:setPropertyActionListener target="#{transMB.finalizarTrans}" value="#{listap}"/>
+	</p:commandButton>
+	
+	<p:commandButton title="CANCELAR" icon="ui-icon-trash" style="width: 24px; height: 24px;" oncomplete="PF('dlgCancelarTrans').show()">
+		<f:setPropertyActionListener target="#{transMB.finalizarTrans}" value="#{listap}"/>
+	</p:commandButton>
+	
+	</p:panelGrid>
+</p:column>
+
+
+</p:dataTable>
+</p:panel>
+
+<p:panel header="TRANSFERÊNCIAS FINALIZADAS">
+
+<p:dataTable value="#{transMB.listaTransferenciasFinalizadas}" var="listap">
+
+<p:column headerText="Protocolo">
+	<h:outputText value="#{listap.protocolo}"/>
+</p:column>
+
+<p:column headerText="Data">
+	<h:outputText value="#{listap.data_transferencia}">
+		<f:convertDateTime pattern="dd/MM/yyyy"/>
+	</h:outputText>
+</p:column>
+
+
+<p:column headerText="Tombamento">
+	<h:outputText value="#{listap.cod_bem}"/>
+</p:column>
+
+<p:column headerText="Ctro. Origem">
+	<h:outputText value="#{listap.ct_resultado_origem}"/>
+</p:column>
+
+<p:column headerText="Localização origem">
+	<h:outputText value="#{listap.localizacao_origem}"/>
+</p:column>
+
+<p:column headerText="Respo. Origem">
+	<h:outputText value="#{listap.responsavel_origem}"/>
+</p:column>
+
+<p:column headerText="Ctro. Destino">
+	<h:outputText value="#{listap.ct_resultado_destino}"/>
+</p:column>
+
+<p:column headerText="Localização Destino">
+	<h:outputText value="#{listap.localizacao_destino}"/>
+</p:column>
+
+<p:column headerText="Respo. Destino">
+	<h:outputText value="#{listap.responsabel_destino}"/>
+</p:column>
+
+<p:column headerText="Situação">
+	<h:outputText value="#{listap.acao}"/>
+</p:column>
+</p:dataTable>
+</p:panel>
+
+<p:dialog widgetVar="dlgAceitarTrans" closable="true" header="Aceitar Transferência">
+	<h:panelGrid columns="3">
+		<h:panelGroup>
+	         <h:outputLabel value="Aceitar Transferência?"/>
+	</h:panelGroup>
+	<p:commandButton value="SIM" icon="ui-icon-check" action="#{transMB.aceitarTransferencia}"  update="@form"/>
+	<p:commandButton value="NÃO" icon="ui-icon-close" onclick="this.close()"/>
+	</h:panelGrid>
+</p:dialog>
+
+<p:dialog widgetVar="dlgNegarTrans" closable="true" header="Negar Transferência">
+	<h:panelGrid columns="3">
+		<h:panelGroup>
+	         <h:outputLabel value="Negar Transferência?"/>
+	</h:panelGroup>
+	<p:commandButton value="SIM" icon="ui-icon-check" action="#{transMB.negarTransferencia}"  update="@form"/>
+	<p:commandButton value="NÃO" icon="ui-icon-close" onclick="this.close()"/>
+	</h:panelGrid>
+</p:dialog>
+
+<p:dialog widgetVar="dlgCancelarTrans" closable="true" header="Cancelar Transferência">
+	<h:panelGrid columns="3">
+		<h:panelGroup>
+	         <h:outputLabel value="Cancelar Transferência?"/>
+	</h:panelGroup>
+	<p:commandButton value="SIM" icon="ui-icon-check" action="#{transMB.cancelarTransferencia}"  update="@form"/>
+	<p:commandButton value="NÃO" icon="ui-icon-close" onclick="this.close()"/>
+	</h:panelGrid>
+</p:dialog>
+
+</h:form>
+</ui:define>
+</ui:composition>

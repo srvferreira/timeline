@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+
+<f:view renderKitId="PRIMEFACES_MOBILE" />
+
+<h:head>
+	<title>TIMELINE-ONLINE V.3.0</title>
+</h:head>
+<h:body>
+	<pm:page id="pgInvent">
+
+		<h:form id="frmInventario" prependId="false">
+			<p:messages showDetail="true" closable="true" id="mgsInventario" />
+
+			<p:commandButton value="Salvar" icon="ui-icon-check"
+				action="#{invMB.cadastrarDados}"
+				update=":pgInvent:frmInventario, :pgInvent:frmInventario:mgsInventario" />
+			<p:commandButton value="Atualizar" icon="ui-icon-refresh"
+				action="#{invMB.atualizarDados}"
+				update=":pgInvent:frmInventario, :pgInvent:frmInventario:mgsInventario" />
+
+			<p:tabView id="tabInventario">
+
+				<p:tab title="CADASTRAR BEM" id="tabCadastro">
+
+					<pm:field>
+						<h:outputLabel value="Quantidade" />
+						<pm:inputSlider value="#{invMB.inv.quantidade}" />
+					</pm:field>
+
+					<pm:field>
+						<h:outputLabel value="Tipo de Bem" />
+						<p:inputText value="#{invMB.inv.tipo_bem}" />
+					</pm:field>
+
+					<pm:field>
+						<h:outputLabel value="Especificação" />
+						<p:inputTextarea cols="22" rows="3" value="#{invMB.inv.desc_bem}" />
+					</pm:field>
+
+					<pm:field>
+						<h:outputLabel value="Centro de Resultado" />
+						<p:selectOneMenu style="width: 250px;"
+							value="#{invMB.inv.centro_resultado}" id="som_centroResultado">
+							<f:selectItem itemLabel="Escolha uma Oção" itemValue="" />
+							<f:selectItems value="#{bensMB.ctResultadoVo}" var="ctr"
+								itemLabel="#{ctr.ct_resultado}" itemValue="#{ctr.ct_resultado}" />
+
+							<f:ajax event="valueChange" listener="#{bensMB.retornarLocalizacoes}"
+								 render="local"/>
+								
+						</p:selectOneMenu>
+					</pm:field>
+
+					<pm:field>
+						<h:outputLabel value="Localização" />
+						<p:selectOneMenu id="local" style="width: 250px;"
+							value="#{invMB.inv.localizacao}">
+							<f:selectItems value="#{bensMB.locais}" var="l"
+								itemLabel="#{l.localizacao}" itemValue="#{l.localizacao}" />
+						</p:selectOneMenu>
+					</pm:field>
+
+					<pm:field>
+						<h:outputLabel value="Data do Inventário" />
+						<p:calendar mask="99/99/9999" navigator="true" value="#{invMB.dataInventario}" pattern="dd/MM/yyyy" />
+					</pm:field>
+
+					<pm:field>
+						<h:outputLabel value="Conta Contábil" />
+						<p:selectOneMenu style="width: 250px;"
+							value="#{invMB.inv.conta_contabil}">
+							<f:selectItems value="#{bensMB.planoContabil}" var="plano"
+								itemLabel="#{plano.nome_conta}"
+								itemValue="#{plano.conta_contabil}" />
+						</p:selectOneMenu>
+					</pm:field>
+
+					<pm:field>
+						<h:outputLabel value="Estado de Conservação" />
+						<p:selectOneMenu value="#{invMB.inv.estado_conservacao}">
+							<f:selectItem itemLabel="Novo" itemValue="Novo" />
+							<f:selectItem itemLabel="Bom" itemValue="Bom" />
+							<f:selectItem itemLabel="Regular com Pequenas Avarias"
+								itemValue="Regular com Pequenas Avarias" />
+							<f:selectItem itemLabel="Regular com Grandes Avarias"
+								itemValue="Regular com Grandes Avarias" />
+							<f:selectItem itemLabel="Ruim" itemValue="Ruim" />
+							<f:selectItem itemLabel="Sem Condições de Uso"
+								itemValue="Sem Condições de Uso" />
+						</p:selectOneMenu>
+					</pm:field>
+
+					<pm:field>
+						<h:outputLabel value="Método Depreciação" />
+						<p:selectOneMenu value="#{invMB.inv.metodo_depreciacao}">
+							<f:selectItem itemLabel="Quotas Constantes"
+								itemValue="Quotas Constantes" />
+							<f:selectItem itemLabel="Soma dos Dígitos"
+								itemValue="Soma dos Dígitos" />
+							<f:selectItem itemLabel="Unidades Produzidas"
+								itemValue="Unidades Produzidas" />
+						</p:selectOneMenu>
+					</pm:field>
+
+					<pm:field>
+						<h:outputLabel value="Vida Útil(em anos)" />
+						<p:inputText value="#{invMB.inv.vida_util}" />
+					</pm:field>
+
+				</p:tab>
+
+				<p:tab title="GERAR TOMBAMENTOS">
+					<h:panelGrid columns="7">
+						<h:outputLabel value="Número Fixo" />
+						<p:inputText value="#{tombMB.num_fixo}" size="5" />
+
+						<h:outputLabel value="Total de Dígitos" />
+						<p:inputText value="#{tombMB.num_digitos}" size="5" />
+
+						<h:outputLabel value="Inciar Em" />
+						<p:inputText value="#{tombMB.inicio}" size="5" />
+
+						<p:commandButton value="Gerar Tombamentos"
+							actionListener="#{tombMB.cadastrarTombamentos}"
+							update=":pgInvent:frmInventario, :pgInvent:frmInventario:mgsInventario" />
+					</h:panelGrid>
+
+					<p:panelGrid columns="2">
+						<h:outputLabel value="O último tombamento gerado" />
+						<h:outputText value="#{tombMB.ultimo_tombamento}" />
+
+						<h:outputLabel value="total de bens sem tombamento" />
+						<h:outputText value="#{tombMB.tombamentosNulo}" />
+					</p:panelGrid>
+				</p:tab>
+				
+				<p:tab title="PESQUISA">
+				
+					<p:dataTable value="#{invMB.listaInventario}" var="inv"
+						id="dtInventario" selection="#{invMB.invEdit}"
+						selectionMode="single" rowKey="#{inv.id}" scrollable="true"
+						scrollHeight="300" style="width:900px; font-size:12px;">
+
+						<p:column headerText="ID" style="width:50px;">
+							<h:outputText value="#{inv.id}" />
+						</p:column>
+
+						<p:column headerText="Tipo de Bem">
+							<h:outputText value="#{inv.tipo_bem}" />
+						</p:column>
+
+						<p:column headerText="Descrição">
+							<h:outputText value="#{inv.desc_bem}" />
+						</p:column>
+
+						<p:column headerText="Centro de Resultado">
+							<h:outputText value="#{inv.centro_resultado}" />
+						</p:column>
+
+						<p:column headerText="Localização">
+							<h:outputText value="#{inv.localizacao}" />
+						</p:column>
+
+						<p:column style="width:24px;">
+							<p:commandButton type="button" title="Editar" icon="ui-icon-clipboard"
+								style="width: 24px; height:24px;"
+								action="#{invMB.preencherCampos}"
+								update=":pgInvent:frmInventario:tabInventario">
+								<p:confirm header="Editar Bem"
+									message="Deseja realmente editar este bem?" />
+								<f:setPropertyActionListener target="#{invMB.invEdit}"
+									value="#{inv}" />
+							</p:commandButton>
+						</p:column>
+
+						<p:column style="width:24px;">
+							<p:commandButton type="button" title="Excluir" icon="ui-icon-trash"
+								style="width: 24px; height:24px;">
+								<p:confirm header="Excluir Bem"
+									message="Deseja realmente excluir este bem?" />
+								<f:setPropertyActionListener target="#{invMB.invEdit}"
+									value="#{inv}" />
+							</p:commandButton>
+						</p:column>
+
+						<f:facet name="footer">
+							<p:commandButton action="#{invMB.retornarInventario}"
+								value="Listar Dados"
+								update=":pgInvent:frmInventario:tabInventario:dtInventario" />
+						</f:facet>
+					</p:dataTable>
+				</p:tab>
+			</p:tabView>
+
+			<h:inputHidden id="cotacao1" value="#{valInvMB.cot1}" />
+			<h:inputHidden id="cotacao2" value="#{valInvMB.cot2}" />
+			<h:inputHidden id="cotacao3" value="#{valInvMB.cot3}" />
+			<h:inputHidden id="cotacao4" value="#{valInvMB.cot4}" />
+			<h:inputHidden id="cotacao5" value="#{valInvMB.cot5}" />
+		</h:form>
+
+
+	</pm:page>
+
+
+</h:body>
+</html>

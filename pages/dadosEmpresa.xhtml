@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/template/template.xhtml" 
+    xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:define name="conteudo">
+	
+			<h:form>
+
+				<p:panel header="Meus Dados">
+				
+				<h:panelGrid columns="2">
+				
+				<h:panelGrid columns="1">
+					<h:panelGrid columns="4">
+
+						<h:outputLabel value="Empresa" />
+						<p:inputText value="#{empMB.empresaEdit.nome}" />
+
+						<h:outputLabel value="CNPJ" />
+						<p:inputMask mask="99.999.999/9999-99"
+							value="#{empMB.empresaEdit.cnpj}" />
+
+
+						<h:outputLabel value="Rua" />
+						<p:inputText value="#{empMB.empresaEdit.rua}" />
+
+						<h:outputLabel value="Num." />
+						<p:inputText style="width:60px;"
+							value="#{empMB.empresaEdit.numero}" />
+
+						<h:outputLabel value="Compl." />
+						<p:inputText style="width:60px;"
+							value="#{empMB.empresaEdit.complemento}" />
+
+
+						<h:outputLabel value="Bairro" />
+						<p:inputText value="#{empMB.empresaEdit.bairro}" />
+
+						<h:outputLabel value="Cidade" />
+						<p:inputText value="#{empMB.empresaEdit.cidade}" />
+
+						<h:outputLabel value="UF" />
+						<p:inputText value="#{empMB.empresaEdit.uf}" />
+
+						<h:outputLabel value="CEP" />
+						<p:inputMask mask="99.999-999" value="#{empMB.empresaEdit.cep}" />
+
+						<h:outputLabel value="Telefone" />
+						<p:inputMask mask="(99)9999-9999"
+							value="#{empMB.empresaEdit.telefone}" />
+
+
+
+
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<h:outputLabel value="Logo da empresa:" />
+						<p:fileUpload mode="advanced" sizeLimit="10000000000"
+							allowTypes="(/(\.|\/)(gif|jpe?g|png|pdf)$/)"
+							fileUploadListener="#{empMB.handleFileUpload}"
+							invalidFileMessage="Tipo de Arquivo não suportado"
+							invalidSizeMessage="O Tamanho do arquivo execedeu o limite permitido"
+							label="Procurar" uploadLabel="Enviar Arquivo"
+							cancelLabel="Cancelar" fileLimit="3" />
+
+
+
+						<h:outputLabel value="Meu Plano" />
+						<h:panelGroup id="pnl_plano">
+							<p:selectOneMenu value="#{empMB.empresaEdit.limiteBensPlano}">
+								<p:ajax event="change"
+									listener="#{empMB.exibirValorDoPlanoEscolhido}"
+									update="pnl_plano" />
+								<f:selectItem itemLabel="Grátis - 50 bens" itemValue="50" />
+								<f:selectItem itemLabel="plano 1 - 100 bens" itemValue="100" />
+								<f:selectItem itemLabel="Plano 2 - 150 bens" itemValue="150" />
+								<f:selectItem itemLabel="Plano 3 - 200 bens" itemValue="200" />
+								<f:selectItem itemLabel="plano 4 - 250 bens" itemValue="250" />
+								<f:selectItem itemLabel="plano 5 - 300 bens" itemValue="300" />
+								<f:selectItem itemLabel="plano 6 - 350 bens" itemValue="350" />
+								<f:selectItem itemLabel="plano 7 - 400 bens" itemValue="400" />
+								<f:selectItem itemLabel="plano 8 - 450 bens" itemValue="450" />
+								<f:selectItem itemLabel="plano 9 - 500 bens" itemValue="500" />
+								<f:selectItem itemLabel="plano 10 - 550 bens" itemValue="550" />
+								<f:selectItem itemLabel="plano 11 - 600 bens" itemValue="600" />
+								<f:selectItem itemLabel="plano 12 - 650 bens" itemValue="650" />
+								<f:selectItem itemLabel="plano 13 - 700 bens" itemValue="700" />
+								<f:selectItem itemLabel="plano 14 - 750 bens" itemValue="750" />
+								<f:selectItem itemLabel="plano 15 - 800 bens" itemValue="800" />
+								<f:selectItem itemLabel="plano 16 - 850 bens" itemValue="850" />
+								<f:selectItem itemLabel="plano 17 - 900 bens" itemValue="900" />
+								<f:selectItem itemLabel="plano 18 - 950 bens" itemValue="950" />
+								<f:selectItem itemLabel="plano 19 - 1000 bens" itemValue="1000" />
+							</p:selectOneMenu>
+							<h:outputText value="#{empMB.exibirValorPlanoEscolhido}" />
+						</h:panelGroup>
+					
+					
+						<p:commandButton value="Salvar Alterações"
+							action="#{empMB.alterarDadosEmpresa}" update="@form" />
+					</h:panelGrid>
+					</h:panelGrid>
+					
+					<h:panelGrid columns="1">			
+					<p:fieldset legend="MINHA LOGO">
+							<img src="../logos/#{empMB.empresaEdit.logo}"/>
+						</p:fieldset>
+					</h:panelGrid>
+					
+					</h:panelGrid>
+				</p:panel>
+
+
+				<p:messages closable="true" showDetail="true" showSummary="true" />
+				
+				
+			</h:form>
+</ui:define>
+</ui:composition>

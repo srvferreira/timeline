@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/template/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+
+
+<ui:define name="conteudo">
+<h:form>
+<p:messages showDetail="true" id="msgEventos" closable="true"/>
+<p:panel header="Eventos Disponíveis">
+
+<h:panelGrid columns="4">
+	<h:outputLabel value="Data Inicial"/>
+	<p:calendar pattern="dd/MM/yyyy" navigator="true" showOn="both" size="10" value="#{rEventMB.dataIni}"/>
+	
+	<h:outputLabel value="Data Final"/>
+	<p:calendar pattern="dd/MM/yyyy" navigator="true" showOn="both" size="10" value="#{rEventMB.dataFim}"/>
+</h:panelGrid>
+
+<p:selectManyCheckbox value="#{rEventMB.evtSelecionados}" layout="grid" columns="2">
+	<f:selectItems value="#{rEventMB.eventos}" var="evt" itemLabel="#{evt}" itemValue="#{evt}"/>
+</p:selectManyCheckbox>
+
+<p:commandButton value="Gerar Relatório" icon="ui-icon-clipboard" action="#{rEventMB.gerarRelatorio}" 
+update="@form" onclick="this.form.target='_blank'" ajax="false"/>
+</p:panel>
+
+</h:form>
+</ui:define>
+</ui:composition>

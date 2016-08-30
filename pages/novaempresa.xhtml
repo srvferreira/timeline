@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/template/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+
+<ui:define name="conteudo">
+
+<h:form>
+	
+							<p:tabView>
+							<p:tab title="Informações Gerais">
+							<h:panelGrid columns="4">
+							
+							<h:outputLabel value="Empresa"/>
+							<p:inputText value="#{novaEmpMB.empresa.nome}"/>
+							
+							<h:outputLabel value="CNPJ"/>
+							<p:inputMask mask="99.999.999/9999-99" value="#{novaEmpMB.empresa.cnpj}"/>
+							
+							
+							<h:outputLabel value="Rua"/>
+							<p:inputText value="#{novaEmpMB.empresa.rua}"/>
+							
+							<h:outputLabel value="Num."/>
+							<p:inputText style="width:60px;" value="#{novaEmpMB.empresa.numero}"/>
+							
+							<h:outputLabel value="Compl."/>
+							<p:inputText style="width:60px;" value="#{novaEmpMB.empresa.complemento}"/>
+							
+							
+							<h:outputLabel value="Bairro"/>
+							<p:inputText value="#{novaEmpMB.empresa.bairro}"/>
+							
+							<h:outputLabel value="Cidade"/>
+							<p:inputText value="#{novaEmpMB.empresa.cidade}"/>
+							
+							<h:outputLabel value="UF"/>
+							<p:inputText value="#{novaEmpMB.empresa.uf}"/>
+							
+							<h:outputLabel value="CEP"/>
+							<p:inputMask mask="99.999-999" value="#{novaEmpMB.empresa.cep}"/>
+							
+							<h:outputLabel value="Telefone"/>
+							<p:inputMask mask="(99)9999-9999" value="#{novaEmpMB.empresa.telefone}"/>
+							
+							</h:panelGrid>
+							</p:tab>
+							
+							<p:tab title="Imagem da Empresa">
+								
+								<h:outputLabel value="Logo da empresa:"/>
+                                <p:fileUpload mode="advanced" sizeLimit="10000000000" allowTypes="(/(\.|\/)(jpe?g|png)$/)"
+                                              fileUploadListener="#{novaEmpMB.handleFileUpload}"
+                                              invalidFileMessage="Tipo de Arquivo não suportado"
+                                              invalidSizeMessage="O Tamanho do arquivo execedeu o limite permitido"
+                                              label="Procurar"
+                                              uploadLabel="Enviar Arquivo"
+                                              cancelLabel="Cancelar"
+                                              fileLimit="3"/>
+								
+							</p:tab>
+							<p:tab title="Informações de Acesso">
+							<h:panelGrid columns="2">
+								
+								<h:outputLabel value="Digite seu nome"/>
+								<p:inputText placeholder="Seu nome" value="#{novaEmpMB.user.nome}"/>
+								
+								<h:outputLabel value="E-mail"/>
+								<p:inputText placeholder="Email" value="#{novaEmpMB.empresa.email}"/>
+								
+								<h:outputLabel value="Enviaremos um email de verificação com a senha temporária"/>
+							</h:panelGrid>
+							
+							<p:commandButton value="Cadastrar" actionListener="#{novaEmpMB.cadastrar}" update="@form"/>
+							</p:tab>
+							
+					</p:tabView>
+					
+            
+			
+		
+							
+					
+</h:form>
+
+</ui:define>
+</ui:composition>

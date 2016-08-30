@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+       xmlns:f="http://java.sun.com/jsf/core">
+       
+       <f:view renderKitId="PRIMEFACES_MOBILE"/>
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>TIMELINE - INVENTÁRIO</title>
+
+  
+</h:head>
+<h:body>
+<script type="text/javascript">
+var originalPrimeFacesCw = PrimeFaces.cw;
+PrimeFaces.cw = function(name, id, options, resource) {
+    resource = resource || name.toLowerCase();
+    originalPrimeFacesCw.apply(this, [name, id, options, resource]);
+};
+
+function changeValue(obj, msg, disable) {      
+    obj = document.getElementById(obj);  
+    obj.textContent = msg;  
+      
+    if(disable){    
+        obj.setAttribute("disabled","disabled");     
+        obj.setAttribute("aria-disabled",disable);     
+    }else{    
+        obj.removeAttribute("disabled");     
+        obj.setAttribute("aria-disabled",disable);     
+    }    
+}    
+</script>
+<pm:page id="principal">
+<pm:header>
+	<h:graphicImage library="img" name="logo.png"/>
+</pm:header>
+	<p:button outcome="pm:cadastro?transition=slide" value="Cadastro"/>
+	<p:button outcome="pm:gerarTombamento?transition=slide" value="Gerar tombamento"/>
+	<p:button outcome="pm:tombarBens?transition=slide" value="Tombar Bens"/>
+	<p:button outcome="pm:pesquisa?transition=slide" value="Inventário Cíclico"/>
+	<p:button outcome="pm:bensNaoEncontrados?transition=slide" value="Bens Não encontrado"/>
+</pm:page>
+	
+	<pm:page id="cadastro">
+	
+	<h:graphicImage library="img" name="logo.png"/>
+	
+	 <pm:header title="Cadastro de Inventário" swatch="b">
+                <p:button outcome="pm:principal?transition=slideup" value="Voltar" icon="ui-icon-arrow-l" styleClass="ui-btn-left ui-btn-inline"/>
+            </pm:header>
+            <h:form id="frmCadastro">
+		<pm:field>
+						<h:outputLabel value="Quantidade" />
+						<pm:inputSlider value="#{invMB.inv.quantidade}" />
+					</pm:field>
+
+					<pm:field>
+						<h:outputLabel value="Tipo de Bem" />
+						<p:inputText value="#{invMB.inv.tipo_bem}" />
+					</pm:field>
+
+					<pm:field>
+						<h:outputLabel value="Especificação" />
+						<p:inputTextarea cols="22" rows="3" value="#{invMB.inv.desc_bem}" />
+					</pm:field>
+
+					<pm:field>
+						<h:outputLabel value="Centro de Resultado" />
+						<p:selectOneMenu style="width: 250px;"
+							value="#{invMB.inv.centro_resultado}" id="som_centroResultado">
+							<f:selectItem itemLabel="Escolha uma Opção" itemValue="" />
+							<f:selectItems value="#{bensMB.ctResultadoVo}" var="ctr"
+								itemLabel="#{ctr.ct_resultado}" itemValue="#{ctr.ct_resultado}" />
+
+							<f:ajax event="valueChange" listener="#{bensMB.retornarLocalizacoes}"
+								 render="local"/>
+								
+						</p:selectOneMenu>
+					</pm:field>
+
+					<pm:field>
+						<h:outputLabel value="Localização" />
+						<p:selectOneMenu id="local" style="width: 250px;"
+							value="#{invMB.inv.localizacao}">
+							<f:selectItems value="#{bensMB.locais}" var="l"
+								itemLabel="#{l.localizacao}" itemValue="#{l.localizacao}" />
+						</p:selectOneMenu>
+					</pm:field>
+
+					<pm:field>
+						<h:outputLabel value="Data do Inventário" />
+						<p:calendar mask="99/99/9999" navigator="true" value="#{invMB.dataInventario}" pattern="dd/MM/yyyy" />
+					</pm:field>
+
+					<pm:field>
+						<h:outputLabel value="Conta Contábil" />
+						<p:selectOneMenu style="width: 250px;"
+							value="#{invMB.inv.conta_contabil}">
+							<f:selectItems value="#{bensMB.planoContabil}" var="plano"
+								itemLabel="#{plano.nome_conta}"
+								itemValue="#{plano.conta_contabil}" />
+						</p:selectOneMenu>
+					</pm:field>
+
+					<pm:field>
+						<h:outputLabel value="Estado de Conservação" />
+						<p:selectOneMenu value="#{invMB.inv.estado_conservacao}">
+							<f:selectItem itemLabel="Novo" itemValue="Novo" />
+							<f:selectItem itemLabel="Bom" itemValue="Bom" />
+							<f:selectItem itemLabel="Regular com Pequenas Avarias"
+								itemValue="Regular com Pequenas Avarias" />
+							<f:selectItem itemLabel="Regular com Grandes Avarias"
+								itemValue="Regular com Grandes Avarias" />
+							<f:selectItem itemLabel="Ruim" itemValue="Ruim" />
+							<f:selectItem itemLabel="Sem Condições de Uso"
+								itemValue="Sem Condições de Uso" />
+						</p:selectOneMenu>
+					</pm:field>
+
+					<pm:field>
+						<h:outputLabel value="Método Depreciação" />
+						<p:selectOneMenu value="#{invMB.inv.metodo_depreciacao}">
+							<f:selectItem itemLabel="Quotas Constantes"
+								itemValue="Quotas Constantes" />
+							<f:selectItem itemLabel="Soma dos Dígitos"
+								itemValue="Soma dos Dígitos" />
+							<f:selectItem itemLabel="Unidades Produzidas"
+								itemValue="Unidades Produzidas" />
+						</p:selectOneMenu>
+					</pm:field>
+
+					<pm:field>
+						<h:outputLabel value="Vida Útil(em anos)" />
+						<p:inputText value="#{invMB.inv.vida_util}" />
+					</pm:field>
+					
+					<pm:field>
+						<p:commandButton action="#{invMB.cadastrarDados}" icon="ui-icon-check" value="Salvar"/>
+					</pm:field>
+		</h:form>
+	</pm:page>
+	
+	<pm:page id="gerarTombamento">
+	
+	<h:graphicImage library="img" name="logo.png"/>
+	
+	<pm:header title="Gerar Tombamentos" swatch="b">
+                <p:button outcome="pm:principal?transition=slideup" value="Voltar" icon="ui-icon-arrow-l" styleClass="ui-btn-left ui-btn-inline"/>
+            </pm:header>
+	     <h:form id="frmGerarTombamento">
+		<h:panelGrid columns="7">
+						<h:outputLabel value="Número Fixo" />
+						<p:inputText value="#{tombMB.num_fixo}" size="5" />
+
+						<h:outputLabel value="Total de Dígitos" />
+						<p:inputText value="#{tombMB.num_digitos}" size="5" />
+
+						<h:outputLabel value="Inciar Em" />
+						<p:inputText value="#{tombMB.inicio}" size="5" />
+
+						<p:commandButton value="Gerar Tombamentos"
+							actionListener="#{tombMB.cadastrarTombamentos}"
+							update="@form" />
+					</h:panelGrid>
+
+					<p:panelGrid columns="2">
+						<h:outputLabel value="O último tombamento gerado" />
+						<h:outputText value="#{tombMB.ultimo_tombamento}" />
+
+						<h:outputLabel value="total de bens sem tombamento" />
+						<h:outputText value="#{tombMB.tombamentosNulo}" />
+					</p:panelGrid>
+					
+					</h:form>
+	</pm:page>
+	
+	<pm:page id="tombarBens">
+		<pm:content>
+                <h:graphicImage library="img" name="logo.png"/>
+		<pm:header title="Realizar Tombamento Físico" swatch="b">
+                <p:button outcome="pm:principal?transition=slideup" value="Voltar" icon="ui-icon-arrow-l" styleClass="ui-btn-left ui-btn-inline"/>
+            </pm:header>
+            
+		<h:form id="frmTombarBens">
+	
+				<pm:field>	
+				     <h:outputLabel value="Centro de Resultado" />
+					 <p:selectOneMenu style="width: 250px;"
+					     value="#{invMB.centroResultado}" id="som2_centroResultado">
+						 <f:selectItem itemLabel="Escolha uma Oção" itemValue="" />
+						 <f:selectItems value="#{bensMB.ctResultadoVo}" var="ctr"
+								itemLabel="#{ctr.ct_resultado}" itemValue="#{ctr.ct_resultado}" />
+
+							<f:ajax event="valueChange" listener="#{bensMB.retornarLocalizacoes}"
+								 render="local1"/>
+								
+						</p:selectOneMenu>
+					</pm:field>
+					<pm:field>
+						<h:outputLabel value="Localização" />
+						<p:selectOneMenu id="local1" style="width: 250px;"
+							value="#{invMB.localizacao}">
+							<f:selectItems value="#{bensMB.locais}" var="l"
+								itemLabel="#{l.localizacao}" itemValue="#{l.localizacao}" />
+						</p:selectOneMenu>
+					</pm:field>
+					
+             <p:commandButton value="Procurar" icon="ui-icon-search" action="#{invMB.retornarListaDeBensParaTombar}" 
+                            update=":tombarBens:frmTombarBens:dtBensParaTombar"/>
+
+
+				<p:dataTable value="#{invMB.listaParaTombar}" var="t"
+					selection="#{invMB.inventarioEdit}" selectionMode="single" rowKey="#{t.id}"
+					 id="dtBensParaTombar" tableStyleClass="ui-table-columntoggle">
+					 
+					 <p:ajax event="rowSelect" listener="#{invMB.onRowSelect}" update=":fotoTombamento"/>
+					 
+					<p:column headerText="Tombamento" priority="1">
+						<h:outputText value="#{t.tombamento}" />
+					</p:column>
+
+					<p:column headerText="Tipo" priority="2">
+						<h:outputText value="#{t.tipo_bem}" />
+					</p:column>
+
+					<p:column headerText="Descrição" priority="3">
+						<h:outputText value="#{t.desc_bem}" />
+					</p:column>
+
+					<p:column priority="4" style="width:40px;">
+						<p:commandButton icon="ui-icon-camera" action="pm:fotoTombamento">
+						
+						</p:commandButton>
+
+
+					</p:column>
+				</p:dataTable>
+
+			</h:form>
+   	
+   	</pm:content>
+	</pm:page>
+	
+	<pm:page id="pesquisa">
+	
+			<h:graphicImage library="img" name="logo.png"/>
+	
+			<pm:header title="Inventário Cíclico" swatch="b">
+                <p:button outcome="pm:principal?transition=slideup" value="Voltar" icon="ui-icon-arrow-l" styleClass="ui-btn-left ui-btn-inline"/>
+     		</pm:header>
+		    
+		    <pm:content>        
+            
+            <h:form id="frmPesquisa">
+            
+           
+            	<h:panelGrid columns="5">
+						<h:outputLabel value="Centro de Resultado" />
+						<p:selectOneMenu style="width: 250px;"
+							value="#{invMB.centroResultado}" id="som_centroResultado">
+							<f:selectItem itemLabel="Escolha uma Oção" itemValue="" />
+							<f:selectItems value="#{bensMB.ctResultadoVo}" var="ctr"
+								itemLabel="#{ctr.ct_resultado}" itemValue="#{ctr.ct_resultado}" />
+
+							<f:ajax event="valueChange" listener="#{bensMB.retornarLocalizacoes}"
+								 render="local2"/>
+								
+						</p:selectOneMenu>
+					
+
+					
+						<h:outputLabel value="Localização" />
+						<p:selectOneMenu id="local2" style="width: 250px;"
+							                  value="#{invMB.localizacao}">
+							<f:selectItems value="#{bensMB.locais}" var="l"
+								itemLabel="#{l.localizacao}" itemValue="#{l.localizacao}" />
+						</p:selectOneMenu>
+					
+					
+					<p:commandButton value="Pesquisar" icon="ui-icon-search" action="#{invMB.retornarBensPorCentroDeResultado}"
+					update=":pesquisa:frmPesquisa:dtInventario"/>
+            
+            </h:panelGrid>
+             
+             <h:panelGrid columns="3">
+            	<h:outputLabel value="Nº Protocolo"/>
+            	<p:inputText value="#{invMB.protocoloPesquisado}"/>
+            	<p:commandButton icon="ui-icon-search" action="#{invMB.procurarPorProtocolo}" 
+            			update=":pesquisa:frmPesquisa:dtInventario"/>
+            	
+            	<p:button value="relatório" outcome="pm:relatorio?transition=slideup"/>
+            	<p:commandButton value="Salvar" action="#{invMB.salvarInventarioCiclico}"/>
+            	<h:outputLabel value="Nº de protocolo:"/>
+            	<h:outputText value="#{invMB.protocolo}"/>
+            </h:panelGrid>
+            
+           
+		<p:dataTable value="#{invMB.listaInventarioCiclico}" var="inv"
+						id="dtInventario" selection="#{invMB.ultimasAcoesModel}" 
+						style="width:900px; font-size:12px;" selectionMode="single" rowKey="#{inv.cod_bem}">
+						
+						 <p:ajax event="rowSelect" listener="#{invMB.visualizarImagemDoBem}" update=":verImagemBem"/>
+						
+						<p:column headerText="Tombamento" style="width:70px;">
+							<h:outputText value="#{inv.cod_bem}" priority="1"/>
+						</p:column>
+
+						<p:column headerText="Tipo">
+							<h:outputText value="#{inv.tipo_bem}" />
+						</p:column>
+
+						<p:column headerText="Localização">
+							<h:outputText value="#{inv.localizacao}" />
+						</p:column>
+						
+						<p:column headerText="Status" style="width:50px;" priority="2">
+							<h:outputText value="#{inv.encontrado}"/>
+						</p:column>
+						
+						<p:column headerText="Ver Imagem" style="width:50px;" priority="3">
+							<p:commandButton icon="ui-icon-camera" action="pm:verImagemBem"/>						
+						</p:column>
+						
+						<p:column headerText="Encontrado?" style="width:65px;" priority="4">
+						
+							<p:commandButton update=":pesquisa:frmPesquisa:dtInventario"  id="comandoSim"
+							actionListener="#{invMB.addListaBemNaoEncontrado(inv, 'Sim')}" style="width:24px;"
+							icon="ui-icon-check"
+							/>
+								
+							<p:commandButton update=":pesquisa:frmPesquisa:dtInventario"
+							     actionListener="#{invMB.addListaBemNaoEncontrado(inv,'Nao')}" style="width:24px;"
+							icon="ui-icon-delete"
+							     />	
+							     
+						
+						</p:column>
+					</p:dataTable>
+					
+					</h:form>
+			
+			</pm:content>
+	</pm:page>
+	
+	<pm:page id="fotoTombamento">
+	
+	<h:graphicImage library="img" name="logo.png"/>
+	
+	<pm:header title="Anexar Foto " swatch="b">
+                <p:button outcome="pm:tombarBens?transition=slideup" value="Voltar" icon="ui-icon-arrow-l" styleClass="ui-btn-left ui-btn-inline"/>
+            </pm:header>
+            <h:panelGrid columns="1">
+            	<h:outputText value="Anexar Imagem ao Tombamento #{invMB.nomeImagem}"/>
+            </h:panelGrid>
+		<h:form id="frmImagem" enctype="multipart/form-data">
+		<p:messages showDetail="true" closable="true" id="msgImagem"/>
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Imagem do Bem"/>
+		<p:fileUpload mode="simple" sizeLimit="10000000000" allowTypes="(/(\.|\/)(jpe?g|png)$/)"
+                      value="#{invMB.eventImgBens}"
+                      invalidFileMessage="Tipo de Arquivo não suportado"
+                      invalidSizeMessage="O Tamanho do arquivo execedeu o limite permitido"
+                      label="Procurar"
+                      uploadLabel="Enviar Arquivo"
+                     />
+				<p:commandButton value="Anexar" actionListener="#{invMB.anexarImagemAoBem}" ajax="false"/>
+				</h:panelGrid>
+		</h:form>
+	</pm:page>
+	
+	<pm:page id="verImagemBem">
+	<h:graphicImage library="img" name="logo.png"/>
+	
+	<pm:header title="Visualizar Imagem do Bem" swatch="b">
+                <p:button outcome="pm:principal?transition=slideup" value="Voltar" icon="ui-icon-arrow-l" styleClass="ui-btn-left ui-btn-inline"/>
+            </pm:header>
+		<h:graphicImage value="#{invMB.imagemBem}"/>
+	</pm:page>
+
+	<pm:page id="bensNaoEncontrados">
+		<h:graphicImage library="img" name="logo.png"/>
+	
+	    <pm:header title="Bens Não Encontrados" swatch="b">
+                <p:button outcome="pm:principal?transition=slideup" value="Voltar" icon="ui-icon-arrow-l" styleClass="ui-btn-left ui-btn-inline"/>
+            </pm:header>
+		<p:button outcome="pm:bemEncontrado?transition=slideup" value="Bem Encontrado" />
+		<p:dataTable value="#{invMB.listaBensNaoEcontrados}" var="lista">
+				<p:column headerText="Tombamento">
+					<h:outputText value="#{lista.cod_bem}"/>
+				</p:column>
+				
+				<p:column headerText="Ctro. Resultado">
+					<h:outputText value="#{lista.centro_resultado}"/>
+				</p:column>
+				
+				<p:column headerText="Localização">
+					<h:outputText value="#{lista.localizacao}"/>
+				</p:column>
+		</p:dataTable>
+		
+	</pm:page>
+     
+    <pm:page id="bemEncontrado">
+    <h:graphicImage library="img" name="logo.png"/>
+	
+	    <pm:header title="Bens Não Encontrados" swatch="b">
+                <p:button outcome="pm:principal?transition=slideup" value="Voltar" icon="ui-icon-arrow-l" styleClass="ui-btn-left ui-btn-inline"/>
+            </pm:header>
+    	<h:panelGrid columns="2">
+    	<h:form id="frm_bemNaoEncontrado">
+    		<h:outputLabel value="Tombamento"/>
+    		<p:inputText value="#{invMB.tombamento_encontrado}"/>
+    		
+    		<h:outputLabel value="Centro de Resultado" />
+			<p:selectOneMenu style="width: 250px;"
+			         value="#{invMB.centro_resultado_encontrado}" id="somw_centroResultado">
+					 <f:selectItem itemLabel="Escolha uma Opção" itemValue="" />
+					 <f:selectItems value="#{bensMB.ctResultadoVo}" var="ctr"
+							itemLabel="#{ctr.ct_resultado}" itemValue="#{ctr.ct_resultado}" />
+
+						<f:ajax event="valueChange" listener="#{bensMB.retornarLocalizacoes}"
+								 render="local_encontrado"/>
+			</p:selectOneMenu>
+			
+			<h:outputLabel value="Localização" />
+			<p:selectOneMenu id="local_encontrado" style="width: 250px;"
+					value="#{invMB.localizacao_encontrada}">
+					<f:selectItems value="#{bensMB.locais}" var="l"
+						itemLabel="#{l.localizacao}" itemValue="#{l.localizacao}" />
+			</p:selectOneMenu>
+			
+			<p:commandButton value="Salvar" action="#{invMB.salvarBemNaoEncontrado}"/>
+			</h:form>
+    	</h:panelGrid>
+    </pm:page>
+	
+	<pm:page id="relatorio">
+	
+	<h:graphicImage library="img" name="logo.png"/>
+	<pm:header title="Anexar Foto " swatch="b">
+        <p:button outcome="pm:principal?transition=slideup" value="Voltar" icon="ui-icon-arrow-l" styleClass="ui-btn-left ui-btn-inline"/>
+    </pm:header>
+		<h:form id="form_relatorioInventario">
+		
+		<h:panelGrid columns="5">
+			<h:outputLabel value="Data Inicial:"/>
+			<p:calendar value="#{invMB.dataProtocoloInicial}" pattern="dd/MM/yyyy" navigator="true"/>
+			
+			<h:outputLabel value="Data Final:"/>
+			<p:calendar value="#{invMB.dataProtocoloFinal}" pattern="dd/MM/yyyy" navigator="true"/>
+			
+			<p:commandButton icon="ui-icon-search" action="#{invMB.pesquisarProtocolos}" update="dtProtocolos"/>
+		</h:panelGrid>
+		
+		<p:dataTable value="#{invMB.listaProtocolos}" var="protocolos" id="dtProtocolos" 
+		            style="width:500px;">
+			
+			<p:column headerText="Protocolo" width="120">
+				<h:outputText value="#{protocolos.protocolo}"/>
+			</p:column>
+			
+			<p:column headerText="Data" width="100">
+				<h:outputText value="#{protocolos.data_inventario}">
+					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+				</h:outputText>
+			</p:column>
+			
+			<p:column headerText="Tipo" width="140">
+				<p:selectOneMenu value="#{invMB.tipo_relatorio}">
+					<f:selectItem itemLabel="Todos" itemValue="todos"/>
+					<f:selectItem itemLabel="Não Encontrados" itemValue="nao"/>
+					<f:selectItem itemLabel="Divergente" itemValue="divergente"/>
+				</p:selectOneMenu>
+			</p:column>
+			
+			<p:column width="130">
+				<p:commandButton value="relatorio" action="#{invMB.gerarRelatorio2(protocolos.protocolo)}" ajax="false" onclick="this.form.target='_blank'"/>
+			</p:column>
+		</p:dataTable>
+		
+		</h:form>
+	</pm:page>
+
+
+</h:body>
+</html>

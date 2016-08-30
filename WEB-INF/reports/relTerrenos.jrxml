@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relTerrenos" language="groovy" pageWidth="1000" pageHeight="792" columnWidth="960" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5f4719ed-479e-46b7-b940-2ff726029e7a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nome_empresa" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="endereco_empresa" class="java.lang.String"/>
+	<parameter name="cnpj_empresa" class="java.lang.String"/>
+	<parameter name="fone_empresa" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="complemento" class="java.lang.String">
+		<fieldDescription><![CDATA[complemento]]></fieldDescription>
+	</field>
+	<field name="estado_conservacao" class="java.lang.String">
+		<fieldDescription><![CDATA[estado_conservacao]]></fieldDescription>
+	</field>
+	<field name="cod_imovel" class="java.lang.String">
+		<fieldDescription><![CDATA[cod_imovel]]></fieldDescription>
+	</field>
+	<field name="nome_imovel" class="java.lang.String">
+		<fieldDescription><![CDATA[nome_imovel]]></fieldDescription>
+	</field>
+	<field name="area_total" class="java.lang.Double">
+		<fieldDescription><![CDATA[area_total]]></fieldDescription>
+	</field>
+	<field name="cidade" class="java.lang.String">
+		<fieldDescription><![CDATA[cidade]]></fieldDescription>
+	</field>
+	<field name="area_construida" class="java.lang.Double">
+		<fieldDescription><![CDATA[area_construida]]></fieldDescription>
+	</field>
+	<field name="dimensao_esquerda" class="java.lang.Double">
+		<fieldDescription><![CDATA[dimensao_esquerda]]></fieldDescription>
+	</field>
+	<field name="valor_imovel" class="java.lang.Double">
+		<fieldDescription><![CDATA[valor_imovel]]></fieldDescription>
+	</field>
+	<field name="cep" class="java.lang.String">
+		<fieldDescription><![CDATA[cep]]></fieldDescription>
+	</field>
+	<field name="dimensao_direita" class="java.lang.Double">
+		<fieldDescription><![CDATA[dimensao_direita]]></fieldDescription>
+	</field>
+	<field name="num" class="java.lang.String">
+		<fieldDescription><![CDATA[num]]></fieldDescription>
+	</field>
+	<field name="uf" class="java.lang.String">
+		<fieldDescription><![CDATA[uf]]></fieldDescription>
+	</field>
+	<field name="dimensao_frente" class="java.lang.Double">
+		<fieldDescription><![CDATA[dimensao_frente]]></fieldDescription>
+	</field>
+	<field name="empresa" class="java.lang.String">
+		<fieldDescription><![CDATA[empresa]]></fieldDescription>
+	</field>
+	<field name="bairro" class="java.lang.String">
+		<fieldDescription><![CDATA[bairro]]></fieldDescription>
+	</field>
+	<field name="logradouro" class="java.lang.String">
+		<fieldDescription><![CDATA[logradouro]]></fieldDescription>
+	</field>
+	<field name="dimensao_fundo" class="java.lang.Double">
+		<fieldDescription><![CDATA[dimensao_fundo]]></fieldDescription>
+	</field>
+	<field name="data_atesto" class="java.lang.String">
+		<fieldDescription><![CDATA[data_atesto]]></fieldDescription>
+	</field>
+	<field name="valor_aluguel" class="java.lang.Double">
+		<fieldDescription><![CDATA[valor_aluguel]]></fieldDescription>
+	</field>
+	<field name="outras_informacoes" class="java.lang.String">
+		<fieldDescription><![CDATA[outras_informacoes]]></fieldDescription>
+	</field>
+	<field name="tipo_imovel" class="java.lang.String">
+		<fieldDescription><![CDATA[tipo_imovel]]></fieldDescription>
+	</field>
+	<field name="valor_terreno" class="java.lang.Double">
+		<fieldDescription><![CDATA[valor_terreno]]></fieldDescription>
+	</field>
+	<variable name="valor_terreno_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor_terreno}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="105" splitType="Stretch">
+			<textField>
+				<reportElement uuid="5c9a4b2b-42bb-48a6-9ee2-1f804cf9f9b4" x="98" y="9" width="442" height="30"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Relatório de Bens Imóveis (Terrenos)"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8c813da5-e668-42e0-98e4-82b784413c55" x="98" y="89" width="270" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fone_empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ad7ed5b4-eb8c-4fdd-9f1a-50ec2d535296" x="98" y="59" width="650" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{endereco_empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4ca23ef6-8253-4aee-85be-1757c9c6d9c2" x="98" y="74" width="269" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cnpj_empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ff27ef65-4b18-4c02-ac3f-19c7a673b8f6" x="98" y="38" width="650" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nome_empresa}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="d84279cc-7fab-4a48-be45-04bf01b12f66" x="0" y="0" width="90" height="87"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="11" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="9" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="47" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="47ccd2d0-33c4-4589-9874-303b3185c519" x="0" y="0" width="960" height="45" backcolor="#FBF2F2"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement uuid="7b3ffd6a-b4a1-440e-8ca6-328a7657e922" x="134" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cod_imovel}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f088c0e4-8f0e-4794-8725-4334cea3af1a" x="11" y="0" width="116" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CÓDIGO]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="f2007dbe-0899-4c79-893c-0a6736e27b37" x="363" y="0" width="336" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome_imovel}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="418c6e16-bfaf-4f64-9c13-45ed07ffcb07" x="240" y="0" width="116" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOME DO IMÓVEL]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="40594602-3c91-43f6-b15a-bfc6a19e5f2e" x="820" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valor_terreno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e49fa1d3-de64-4290-a391-5d29611ba97f" x="705" y="0" width="116" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR DO TERRENO]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a9eb0c40-90bb-4a78-80de-c986df647cbc" x="134" y="23" width="828" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{logradouro} + "," + $F{num} + " " + $F{bairro} + " " + $F{cidade} + " " + $F{uf} + " " + $F{cep}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ab1a4678-36e5-4de0-8538-b6caba9f8752" x="11" y="23" width="116" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ENDEREÇO]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="4cd63cdd-28e2-487e-a4d6-33c8d77b0883" x="0" y="45" width="960" height="1" forecolor="#CCCCCC"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="22" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="a20616ab-c8dc-4651-9cbd-60eb5e846ed1" x="133" y="0" width="180" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0df20147-5497-4b13-95c3-1a53c9e851aa" x="6" y="0" width="129" height="20"/>
+				<textElement/>
+				<text><![CDATA[Documento Impresso em -]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="25" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="891f7785-3443-42ed-85f5-897420a8361f" x="0" y="0" width="960" height="25" backcolor="#CC0000"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="55470d1f-49ba-4132-927c-3ed8e41d52fe" x="705" y="0" width="116" height="25" forecolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR TOTAL]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="cdd10a70-7e4d-4428-a852-131fbd23565a" x="820" y="0" width="117" height="25" forecolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{valor_terreno_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/template/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+
+
+<ui:define name="conteudo">
+<h:outputScript name="calendar.js" library="js"/>
+<h:form id="form_valorar" prependId="false">
+<p:messages showDetail="true" closable="true" id="msgValoracao"/>
+
+<p:toolbar>
+	<p:toolbarGroup style="font-size: 12px;">
+	<h:panelGrid columns="7">
+	
+	<h:outputLabel value="Critério"/>
+		<p:selectOneMenu value="#{valMB.criterio}">
+			<f:selectItem itemLabel="Escolha uma Opção" itemValue=""/>
+			<f:selectItem itemLabel="Procurar Por Tombamento" itemValue="COD_BEM"/>
+			<f:selectItem itemLabel="Procurar por Conta Contábil" itemValue="CONTA_CONTABIL"/>
+			
+			<p:ajax event="change" listener="#{valMB.alterarMascara}" update="pesquisarTxt"/>
+		</p:selectOneMenu>
+		
+		<h:outputLabel value="Tombamento / Conta Contábil" id="pesquisarTxt"/>
+		<p:inputMask mask="#{valMB.mascaraAtual}" placeholder="tombamento / Ct. contábil" value="#{valMB.criterioBuscar}"/>
+				
+		<h:outputLabel value="Data da Avaliação"/>
+		<p:calendar  showOn="button" navigator="true" pattern="dd/MM/yyyy" value="#{valMB.dataAtualizacao}"/>
+		
+		<p:commandButton title="Buscar" icon="ui-icon-search" action="#{valMB.pesquisarBem}" update="@form"/>
+	</h:panelGrid>
+	</p:toolbarGroup>
+	
+	
+</p:toolbar>
+
+<p:panel header="Resultado da Pesquisa">
+<h:panelGroup rendered="#{not empty valMB.listaValoracao}">
+
+<p:dataTable value="#{valMB.listaValoracao}" var="lista">
+
+<p:column headerText="Tombamento">
+	<h:outputText value="#{lista.tombamento}"/>
+</p:column>
+
+<p:column headerText="Vr. Bruto Atual">
+	<h:outputText value="#{lista.vl_bem}"/>
+</p:column>
+
+<p:column headerText="Vr. Residual">
+	<h:outputText value="#{lista.valor_residual}"/>
+</p:column>
+
+<p:column headerText="Vida Útil">
+	<h:outputText value="#{lista.vida_util}"/>
+</p:column>
+
+<p:column headerText="Método Depreciação">
+	<h:outputText value="#{lista.metodo_depreciacao}"/>
+</p:column>
+
+<p:column headerText="produção Anual">
+	<h:outputText value="#{lista.prod_anual}"/>
+</p:column>
+
+<p:column headerText="Produção Total">
+	<h:outputText value="#{lista.prod_total}"/>
+</p:column>
+
+<p:column headerText="Estado de Conservação">
+	<h:outputText value="#{lista.estado_conservacao}"/>
+</p:column>
+
+<p:column headerText="Vr. Atual" style="background-color: #D2B48C;">
+	<h:outputText value="#{lista.vl_atual}"/>
+</p:column>
+
+<p:column headerText="Vr. Residual" style="background-color: #D2B48C;">
+	<h:outputText value="#{lista.valor_residual}"/>
+</p:column>
+
+<p:column headerText="Depreciação Acumulada" style="background-color: #D2B48C;">
+	<h:outputText value="#{lista.dep_acm}"/>
+</p:column>
+
+<p:column headerText="Vr. Cont. Líquido" style="background-color: #D2B48C;">
+	<h:outputText value="#{lista.vl_cont_liquido}"/>
+</p:column>
+
+<p:column headerText="Ações">
+	<p:panelGrid columns="2">
+		<p:commandButton value="Revisar" icon="ui-icon-pencil" oncomplete="PF('dlgRevisar').show();" action="#{valMB.preencherCampos}"
+		                 update=":form_valorar:pnlRevisar">
+			<f:setPropertyActionListener target="#{valMB.valoracaoEdit}" value="#{lista}"/>
+		</p:commandButton>
+		
+		<p:commandButton value="Avaliar" icon="ui-icon-refresh" oncomplete="PF('dlgAvaliar').show();" action="#{valMB.preencherCampos}"
+		            update=":form_valorar:pnlAvaliar">
+			<f:setPropertyActionListener target="#{valMB.valoracaoEdit}" value="#{lista}"/>
+		</p:commandButton>
+	</p:panelGrid>
+</p:column>
+</p:dataTable>
+</h:panelGroup>
+</p:panel>
+
+
+
+<p:dialog widgetVar="dlgAvaliar" header="Avaliação de Bem" closable="true">
+	
+	<h:inputHidden value="#{valMB.valorar2.tombamento}"/>
+	
+	
+ 	<h:panelGrid columns="2" id="pnlAvaliar">
+		
+		<h:outputLabel value="Tombamento"/>
+ 	   <p:inputText value="#{valMB.tombamentoAmostra}" disabled="true"/>
+		
+		<h:outputLabel value="Valor bruto"/>
+		<p:inputText value="#{valMB.valorar2.vl_bem}"/>
+		
+		<h:outputLabel value="Valor Residual"/>
+		<p:inputText value="#{valMB.valorar2.valor_residual}"/>
+		
+		<h:outputLabel value="Vida Útil"/>
+		<p:inputText value="#{valMB.valorar2.vida_util}"/>
+		
+		<h:outputLabel value="Método de Depreciação"/>
+		<p:selectOneMenu value="#{valMB.valorar2.metodo_depreciacao}" >
+			<f:selectItem itemLabel="Quotas Constantes"   itemValue="Quotas Constantes"/>
+			<f:selectItem itemLabel="Soma dos Dígitos"    itemValue="Soma dos Dígitos"/>
+			<f:selectItem itemLabel="Unidades Produzidas" itemValue="Unidades Produzidas"/>
+		</p:selectOneMenu>
+		
+		<h:outputLabel value="Estado de Conservação"/>
+		<p:selectOneMenu value="#{valMB.valorar2.estado_conservacao}">
+			<f:selectItem itemLabel="Novo"   itemValue="Novo"/>
+			<f:selectItem itemLabel="Bom"    itemValue="Bom"/>
+			<f:selectItem itemLabel="Regular com Pequenas Avarias" itemValue="Regular com Pequenas Avarias"/>
+			<f:selectItem itemLabel="Regular com Grandes Avarias" itemValue="Regular com Grandes Avarias"/>
+			<f:selectItem itemLabel="Ruim" itemValue="Ruim"/>
+			<f:selectItem itemLabel="Sem Condições de Uso" itemValue="Sem Condicoes de Uso"/>
+		</p:selectOneMenu>
+		
+		<h:outputLabel/>
+		<p:commandButton value="Atualizar" icon="ui-icon-refresh" action="#{valMB.calcularAvaliacao}"
+		                 update="@form, :form_valorar:msgValoracao"/>
+	</h:panelGrid>
+	
+	
+</p:dialog>
+
+<p:dialog widgetVar="dlgRevisar" header="Revisão de Bem" closable="true">
+	
+	<h:inputHidden value="#{valMB.valorar.tombamento}"/>
+	
+ 	<h:panelGrid columns="2" id="pnlRevisar">
+ 	
+ 	    <h:outputLabel value="Tombamento"/>
+ 	    <p:inputText value="#{valMB.tombamentoAmostra}" disabled="true"/>
+		
+		<h:outputLabel value="Valor Residual"/>
+		<p:inputText value="#{valMB.valorar.valor_residual}" />
+		
+		<h:outputLabel value="Vida Útil"/>
+		<p:inputText value="#{valMB.valorar.vida_util}"/>
+		
+		<h:outputLabel value="Método de Depreciação"/>
+		
+		<p:selectOneMenu value="#{valMB.valorar.metodo_depreciacao}">
+			<f:selectItem itemLabel="Quotas Constantes"   itemValue="Quotas Constantes"/>
+			<f:selectItem itemLabel="Soma dos Dígitos"    itemValue="Soma dos Dígitos"/>
+			<f:selectItem itemLabel="Unidades Produzidas" itemValue="Unidades Produzidas"/>
+		</p:selectOneMenu>
+		 <h:outputLabel value="prod. Anual"/>
+		 <p:inputText value="#{valMB.valorar.prod_anual}" size="7"/>
+		 
+		 <h:outputLabel value="prod. Total"/>
+		 <p:inputText value="#{valMB.valorar.prod_total}" size="7"/>
+		
+		<h:outputLabel value="Estado de Conservação"/>
+		<p:selectOneMenu value="#{valMB.valorar.estado_conservacao}">
+			<f:selectItem itemLabel="Novo"   itemValue="Novo"/>
+			<f:selectItem itemLabel="Bom"    itemValue="Bom"/>
+			<f:selectItem itemLabel="Regular com Pequenas Avarias" itemValue="Regular com Pequenas Avarias"/>
+			<f:selectItem itemLabel="Regular com Grandes Avarias" itemValue="Regular com Grandes Avarias"/>
+			<f:selectItem itemLabel="Ruim" itemValue="Ruim"/>
+			<f:selectItem itemLabel="Sem Condições de Uso" itemValue="Sem Condicoes de Uso"/>
+		</p:selectOneMenu>
+		
+		<h:outputLabel/>
+		<p:commandButton value="Atualizar" icon="ui-icon-refresh" action="#{valMB.calcularRevisao}" update="@form, :form_valorar:msgValoracao"/>
+	</h:panelGrid>
+	
+	
+</p:dialog>
+
+
+
+</h:form>
+
+
+</ui:define>
+</ui:composition>

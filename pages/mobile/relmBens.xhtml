@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+       xmlns:f="http://java.sun.com/jsf/core">
+       <f:view renderKitId="PRIMEFACES_MOBILE" />
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="stylesheet" href="../../resources/css/themes/ferreira.css" />
+<link rel="stylesheet" href="../../resources/css/themes/jquery.mobile.icons.min.css" />
+<title>TIMELINE - INVENTÁRIO</title>
+</h:head>
+<h:body>
+
+<pm:page id="pgRelBens" swatch="b">
+	<pm:header title="PESQUISAR BENS CADASTRADOS" swatch="b">
+		 <p:button outcome="pm:principal?transition=slideup" value="Voltar" icon="ui-icon-arrow-l" styleClass="ui-btn-left ui-btn-inline"/>
+	</pm:header>
+	<h:form id="frmRelBens" prependId="false">
+	<p:panel header="Opções de Pesquisa">
+		<pm:field>
+			<h:outputLabel value="Tombamento"/>
+			<p:inputText style="width:300px;" value="#{pesqMobile.tombamento}"/>
+		</pm:field>
+		
+		<pm:field>
+			<h:outputLabel value="Data Inicial"/>
+			<p:calendar pattern="dd/MM/yyyy" navigator="true" mask="99/99/9999"/>
+		</pm:field>
+		
+		<pm:field>
+			<h:outputLabel value="Data Final"/>
+			<p:calendar pattern="dd/MM/yyyy" navigator="true" mask="99/99/9999"/>
+		</pm:field>
+		
+		 <pm:field>   
+        <h:outputLabel value="Centro de Resultado:"/>
+   		<p:selectOneMenu style="width: 250px;"  id="som_centroResultado" value="#{pesqMobile.centroResultado}">
+   		<f:selectItem itemLabel="Escolha uma Opção" itemValue=""/>
+   		<f:selectItems value="#{bensMB.ctResultadoVo}"
+   		 			   var="ctr"
+   		 			   itemLabel="#{ctr.ct_resultado}" itemValue="#{ctr.ct_resultado}"/>
+   		 			   
+         <f:ajax event="valueChange" listener="#{bensMB.retornarLocalizacoes}" render="local"/>
+   </p:selectOneMenu>
+   </pm:field>
+   
+   <pm:field>   
+        <h:outputLabel value="Localização:"/>
+   		<p:selectOneMenu id="local" style="width: 250px;" value="#{pesqMobile.localizacao}">
+   		<f:selectItems value="#{bensMB.locais}"
+   		               var="l"
+   		               itemLabel="#{l.localizacao}"
+   		               itemValue="#{l.localizacao}"/>
+   </p:selectOneMenu>
+   </pm:field>
+   <pm:field>
+   		<h:outputLabel value="Responsável"/>
+         <p:selectOneMenu value="#{pesqMobile.responsavel}" id="responsavel">
+			<f:selectItem itemLabel="Escolha uma Opção" itemValue=""/>
+			<f:selectItems value="#{pesqMobile.listaRespo}" var="resp" 
+			               itemLabel="#{resp.nome}" itemValue="#{resp.nome}"/>
+		</p:selectOneMenu>
+   </pm:field>
+   
+   <pm:field>
+   	<p:commandButton action="#{pesqMobile.gerarRelatorio}" value="Gerar Relatório" update=":pgRelBens:frmRelBens:dtPesqBens"/>
+   </pm:field>
+	</p:panel>
+	
+	<p:panel header="Resultado">
+		<p:dataTable id="dtPesqBens" value="#{pesqMobile.listaUtimas}" var="lst">
+			<p:column headerText="Tombamento" style="background-color: #FAF0E6; border: 1px solid #FAF0E6;">
+				<h:outputText value="#{lst.cod_bem}"/>
+			</p:column>
+			
+			<p:column headerText="Descrição" style="background-color: #FAF0E6; border: 1px solid #FAF0E6;">
+				<h:outputText value="#{lst.desc_bem}"/>
+			</p:column>
+			
+			<p:column headerText="Centro de Resultado" style="background-color: #FAF0E6; border: 1px solid #FAF0E6;">
+				<h:outputText value="#{lst.ct_resultado}"/>
+			</p:column>
+			
+			<p:column headerText="Localização" style="background-color: #FAF0E6; border: 1px solid #FAF0E6;">
+				<h:outputText value="#{lst.localizacao}"/>
+			</p:column>
+			 
+			<p:column headerText="Valor (R$)" style="background-color: #FAF0E6; border: 1px solid #FAF0E6;">
+				<h:outputText value="#{lst.vl_cont_depois}"/>
+			</p:column>
+		</p:dataTable>
+	</p:panel>
+	</h:form>
+	
+	
+</pm:page>
+</h:body>
+</html>

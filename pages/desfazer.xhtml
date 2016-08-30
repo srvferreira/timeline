@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/template/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+<f:event listener="#{desfazMB.carregarMascara}" type="preRenderView"/>
+<ui:define name="conteudo">
+<h:form>
+
+<p:panel header="Desfazer Ação">
+<h:panelGrid columns="3">
+	<h:outputLabel value="Tombamento:"/>
+	<p:inputMask value="#{desfazMB.config.mask_tombamento}" placeholder="tombamento"/>
+	
+	<p:commandButton icon="ui-icon-search" update="@form"/>
+</h:panelGrid>
+	<p:dataTable>
+	
+	</p:dataTable>
+</p:panel>
+
+
+
+</h:form>
+</ui:define>
+</ui:composition>

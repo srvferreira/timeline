@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="inventarioCiclico" language="groovy" pageWidth="1015" pageHeight="612" orientation="Landscape" columnWidth="975" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="026a63a1-2801-4baa-9e56-2e3ee7f60859">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<parameter name="endereco_empresa" class="java.lang.String"/>
+	<parameter name="cnpj_empresa" class="java.lang.String"/>
+	<parameter name="fone_empresa" class="java.lang.String"/>
+	<parameter name="nome_empresa" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="encontrado" class="java.lang.String">
+		<fieldDescription><![CDATA[encontrado]]></fieldDescription>
+	</field>
+	<field name="centro_resultado_divergente" class="java.lang.String">
+		<fieldDescription><![CDATA[centro_resultado_divergente]]></fieldDescription>
+	</field>
+	<field name="data_inventario" class="java.util.Date">
+		<fieldDescription><![CDATA[data_inventario]]></fieldDescription>
+	</field>
+	<field name="cod_bem" class="java.lang.String">
+		<fieldDescription><![CDATA[cod_bem]]></fieldDescription>
+	</field>
+	<field name="inventariador" class="java.lang.String">
+		<fieldDescription><![CDATA[inventariador]]></fieldDescription>
+	</field>
+	<field name="centro_resultado" class="java.lang.String">
+		<fieldDescription><![CDATA[centro_resultado]]></fieldDescription>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[descricao]]></fieldDescription>
+	</field>
+	<field name="empresa" class="java.lang.String">
+		<fieldDescription><![CDATA[empresa]]></fieldDescription>
+	</field>
+	<field name="localizacao" class="java.lang.String">
+		<fieldDescription><![CDATA[localizacao]]></fieldDescription>
+	</field>
+	<field name="localizacao_divergente" class="java.lang.String">
+		<fieldDescription><![CDATA[localizacao_divergente]]></fieldDescription>
+	</field>
+	<field name="protocolo" class="java.lang.String">
+		<fieldDescription><![CDATA[protocolo]]></fieldDescription>
+	</field>
+	<field name="tipo_bem" class="java.lang.String">
+		<fieldDescription><![CDATA[tipo_bem]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="110" splitType="Stretch">
+			<image>
+				<reportElement uuid="d84279cc-7fab-4a48-be45-04bf01b12f66" x="10" y="10" width="90" height="87"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="5c9a4b2b-42bb-48a6-9ee2-1f804cf9f9b4" x="110" y="10" width="442" height="30"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Relatório de Inventário Cíclico"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ad7ed5b4-eb8c-4fdd-9f1a-50ec2d535296" x="110" y="55" width="440" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{endereco_empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4ca23ef6-8253-4aee-85be-1757c9c6d9c2" x="110" y="70" width="269" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cnpj_empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ff27ef65-4b18-4c02-ac3f-19c7a673b8f6" x="110" y="40" width="441" height="15"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nome_empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8c813da5-e668-42e0-98e4-82b784413c55" x="110" y="85" width="270" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fone_empresa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="7aeb7ed2-459e-4ea4-a937-15b970dfa70e" x="813" y="93" width="48" height="16"/>
+				<textElement/>
+				<text><![CDATA[Protocolo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b31e4ff1-2e93-4069-815f-c87ad5dd1dec" x="860" y="93" width="100" height="16"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{protocolo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="3b869bbe-dd91-4cd1-b2e9-ea85d94d824a" mode="Transparent" x="0" y="20" width="80" height="14" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tombamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="957e1ca7-a241-42ef-b1d6-e374df21dca1" mode="Transparent" x="79" y="20" width="130" height="14" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c3260b3a-57b1-4840-9f8a-ecab20499e9a" mode="Transparent" x="208" y="20" width="160" height="14" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Centro de Resultado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="da0ae80b-bbc9-44dd-8037-ffa2c9f11d0a" x="367" y="20" width="160" height="14"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Localização]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b9f6785e-8d21-42f5-b476-f602341a7d38" x="526" y="20" width="60" height="14"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Encontrado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="41febcc0-2fbb-48a0-b8b1-f1e63d4d4056" mode="Opaque" x="586" y="20" width="160" height="14" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[Centro de Resultado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a00e7b50-a290-4558-b7ce-63cc20ffc27f" mode="Opaque" x="748" y="20" width="160" height="14" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[Localização]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8560d4ef-6665-4677-9c14-52f9bfa2d0a8" mode="Opaque" x="910" y="20" width="64" height="14" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="1"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6a585ad9-1240-4890-b347-b4e59c60a140" x="0" y="0" width="553" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="8" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Informação Atual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="65f62125-1e43-4e1c-8d91-318af763cb66" x="559" y="0" width="403" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="8" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Informação Divergente]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="200caacc-c072-4b04-b5eb-229973a34a01" x="0" y="17" width="553" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dotted" lineColor="#CCCCCC"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement uuid="200caacc-c072-4b04-b5eb-229973a34a01" x="559" y="17" width="403" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dotted" lineColor="#CCCCCC"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="2" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement uuid="fb193e62-5b8a-414c-823f-298228608e45" x="2" y="0" width="80" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cod_bem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="42950921-da8c-4a1a-9de0-10d4155f5a98" x="210" y="0" width="160" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{centro_resultado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b502507a-0e7c-41f6-b267-524502af1a6c" x="369" y="0" width="160" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{localizacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f8c6d6d2-d6ca-4f1f-8770-47af27f9dec0" x="528" y="1" width="60" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{encontrado}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7f41cc80-687d-4540-b51a-cd4bd0227086" mode="Opaque" x="586" y="1" width="160" height="20" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{centro_resultado_divergente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="65dacbc7-5897-4bf5-a999-c11bb66b4ebd" mode="Opaque" x="748" y="1" width="160" height="20" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{localizacao_divergente}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="6c2c94ca-f2b3-4080-bf1f-43d571337541" mode="Opaque" x="910" y="1" width="64" height="20" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data_inventario}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="f434d914-a386-4166-b1ec-a9ede799297a" stretchType="RelativeToBandHeight" x="79" y="0" width="130" height="22"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo_bem}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="c87b9563-59bb-44e8-9b23-b66e18c0ffac" x="0" y="22" width="975" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dotted" lineColor="#006666"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="2" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="8add0caa-3f4a-41ce-beb5-6e5a47bb448f" x="1" y="0" width="224" height="20"/>
+				<textElement/>
+				<text><![CDATA[Documento Impresso pelo sistema Timeline em:]]></text>
+			</staticText>
+			<textField pattern="dd &apos; de &apos; MMMMM &apos; de &apos; yyyy">
+				<reportElement uuid="1ef6f6f7-f32b-4fde-850d-dce9f03c7449" x="224" y="0" width="136" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

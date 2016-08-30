@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/template/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+
+<ui:define name="conteudo">
+
+<h:outputScript library="primefaces" name="jquery/jquery.js" />
+
+<script type="text/javascript">
+function gerarProtocolo(){
+$(document).ready(function(){
+	
+	numero = Math.random();
+	p = (numero).toFixed(6).toString().split(".");
+	data = new Date();
+	ano = data.getFullYear();
+	protocoloFinal = ano + ".01-" + p[1];
+	$('[id="numero_protocolo"]').val(protocoloFinal);
+	$('[id="hnumero_protocolo"]').val(protocoloFinal);
+});
+
+}
+</script>
+
+<style type="text/css">
+
+.bgToolbar {
+	
+background: #f95631; /* Old browsers */
+background: -moz-linear-gradient(top,  #f95631 5%, #f95631 5%, #a5431f 51%, #a5431f 51%, #bf726b 97%, #bf726b 97%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(5%,#f95631), color-stop(5%,#f95631), color-stop(51%,#a5431f), color-stop(51%,#a5431f), color-stop(97%,#bf726b), color-stop(97%,#bf726b)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #f95631 5%,#f95631 5%,#a5431f 51%,#a5431f 51%,#bf726b 97%,#bf726b 97%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #f95631 5%,#f95631 5%,#a5431f 51%,#a5431f 51%,#bf726b 97%,#bf726b 97%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #f95631 5%,#f95631 5%,#a5431f 51%,#a5431f 51%,#bf726b 97%,#bf726b 97%); /* IE10+ */
+background: linear-gradient(to bottom,  #f95631 5%,#f95631 5%,#a5431f 51%,#a5431f 51%,#bf726b 97%,#bf726b 97%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f95631', endColorstr='#bf726b',GradientType=0 ); /* IE6-9 */
+
+}
+
+.colunaDireita{  
+    text-align: left;  
+}  
+.colunaEsquerda{  
+    text-align: right;    
+}  
+</style>
+
+<h:form id="form_trans" prependId="false">
+
+<script type="text/javascript">gerarProtocolo();</script>
+
+<p:messages id="msg_trans" closable="true" showDetail="true"/>
+<p:fieldset legend="Transferência de Bens">
+
+<p:toolbar styleClass="bgToolbar" style="font-size:12px;">
+	<p:toolbarGroup>
+		<p:commandButton value="Adicionar" actionListener="#{transMB.adicionarBem}" update=":form_trans"/>
+		<p:commandButton value="Finalizar Transferência" actionListener="#{transMB.salvarTransferencia}" update="@form"/>
+		<p:commandButton value="Cancelar"/>
+	</p:toolbarGroup>
+</p:toolbar>
+<h:panelGrid columns="2">
+
+<p:panel header="ORIGEM" style="font-size:12px;" id="pn_origem">
+	<h:panelGrid columns="2" columnClasses="colunaEsquerda, colunaDireita">
+	
+		
+		<h:outputLabel value="Tombamento"/>
+		
+		<h:panelGrid columns="2">
+			<p:inputText value="#{transMB.transVO.cod_bem}"/>
+			<p:commandButton icon="ui-icon-search" style="witdh: 24px; height:24px;" title="Retornar Dados" update="@form"
+			              action="#{transMB.recuperarBensOrigem}"/>
+		</h:panelGrid>
+		<h:outputLabel value="Responsável"/>
+		<p:selectOneMenu value="#{transMB.transVO.responsavel_origem}">
+			<f:selectItems value="#{transMB.listaResponsavelOrigem}" var="ro" 
+			               itemLabel="#{ro.nome}" itemValue="#{ro.nome}"/>
+		</p:selectOneMenu>
+		
+		<h:outputLabel value="Centro de Resultado"/>
+		<p:inputText value="#{transMB.transVO.ct_resultado_origem}"/>
+		
+		<h:outputLabel value="Localização"/>
+		<p:inputText value="#{transMB.transVO.localizacao_origem}"/>
+		
+		<h:outputLabel value="Motivo"/>
+		<p:inputTextarea cols="20" rows="5" value="#{transMB.transVO.motivo}"/>
+		
+	<h:outputLabel value="Protocolo"/>
+	<p:inputText id="numero_protocolo"  disabled="true"/>
+	</h:panelGrid>
+	
+	<h:inputHidden id="hnumero_protocolo" value="#{transMB.transVO.protocolo}"/>
+</p:panel>
+
+<p:panel header="DESTINO" style="font-size:12px;" id="pnl_destino">
+
+<h:panelGrid columns="2" columnClasses="colunaEsquerda, colunaDireita">
+
+<h:outputLabel value="Centro de Resultado"/>
+<p:selectOneMenu style="width: 200px;" value="#{transMB.transVO.ct_resultado_destino}">
+<f:selectItem itemLabel="Escolha uma Opção" itemValue=""/>
+<f:selectItems value="#{bensMB.ctResultadoVo}"
+   		 			   var="ctr"
+   		 			   itemLabel="#{ctr.ct_resultado}" itemValue="#{ctr.ct_resultado}"/>
+    <p:ajax event="change" listener="#{transMB.retornarLocalizacoes}" update=":form_trans:pnl_destino"/>
+</p:selectOneMenu>
+
+<h:outputLabel value="Localização"/>
+<p:selectOneMenu style="width: 200px;" id="localOrigem" value="#{transMB.transVO.localizacao_destino}">
+<f:selectItems value="#{transMB.locais}"
+   		               var="l"
+   		               itemLabel="#{l.localizacao}"
+   		               itemValue="#{l.localizacao}"/>
+</p:selectOneMenu>
+
+<h:outputLabel value="Responsável"/>
+<p:selectOneMenu style="width: 200px;" value="#{transMB.transVO.responsabel_destino}">
+<f:selectItems value="#{transMB.listaResponsaveis}" var="resp"
+				itemLabel="#{resp.nome}" itemValue="#{resp.nome}"/>
+</p:selectOneMenu>
+</h:panelGrid>
+<p:spacer height="115"/>
+</p:panel>
+
+</h:panelGrid>
+
+<p:dataTable var="t" value="#{transMB.listaTransferir}">
+	<p:column headerText="Protocolo">
+		<h:outputText value="#{t.protocolo}"/>
+	</p:column>
+	
+	<p:column headerText="Tombamento">
+		<h:outputText value="#{t.cod_bem}"></h:outputText>
+	</p:column>
+	
+	<p:column headerText="Ctro. Origem">
+		<h:outputText value="#{t.ct_resultado_origem}"></h:outputText>
+	</p:column>
+	
+	<p:column headerText="Localização. Origem">
+		<h:outputText value="#{t.localizacao_origem}"></h:outputText>
+	</p:column>
+	
+	<p:column headerText="Ctro. Destino">
+		<h:outputText value="#{t.ct_resultado_destino}"></h:outputText>
+	</p:column>
+	
+	<p:column headerText="Localização. Destino">
+		<h:outputText value="#{t.localizacao_destino}"></h:outputText>
+	</p:column>
+	<p:column style="width: 24px;">
+		<p:commandButton title="excluir" icon="ui-icon-close" style="width: 24px; height: 24px;" oncomplete="PF('dlgExcluirItem').show()">
+			<f:setPropertyActionListener target="#{transMB.transVO2}" value="#{t}"/>
+		</p:commandButton>
+	</p:column>
+</p:dataTable>
+</p:fieldset>
+
+<p:dialog widgetVar="dlgExcluirItem" closable="true">
+	<h:panelGrid columns="3">
+		<h:panelGroup>
+	         <h:outputLabel value="deseja remover o item "/>
+	         <h:outputText value="#{transMB.transVO2.cod_bem}"/>
+	         <h:outputLabel value="da lista?"/>
+	</h:panelGroup>
+	<p:commandButton value="SIM" icon="ui-icon-check" action="#{transMB.excluirLinha}"  update="@form"/>
+	<p:commandButton value="NÃO" icon="ui-icon-close"/>
+	</h:panelGrid>
+</p:dialog>
+</h:form>
+
+</ui:define>
+</ui:composition>

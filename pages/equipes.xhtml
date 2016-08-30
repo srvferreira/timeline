@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/template/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+
+
+<ui:define name="conteudo">
+
+<h:form id="form_equipe">
+<p:messages showDetail="true" closable="true"/>
+	
+
+	<p:panel header="CRIAR EQUIPE">
+	<p:toolbar>
+		<p:toolbarGroup>
+			<p:commandButton value="Salvar" icon="ui-icon-check" actionListener="#{equipeMB.salvar}" update="@form"/>
+			<p:commandButton value="Atualizar" icon="ui-icon-refresh" actionListener="#{equipeMB.atualizar}" update="@form"/>
+		</p:toolbarGroup>
+	</p:toolbar>
+	
+			<h:panelGrid columns="2">
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Equipe"/>
+			<p:inputText placeholder="Nome da Equipe" value="#{equipeMB.nomeEquipe}"/>
+			<h:outputLabel value="Usuários" />	
+			<p:pickList value="#{equipeMB.dualListUsuarios}" var="lista" itemLabel="#{lista}" itemValue="#{lista}" />
+		</h:panelGrid>
+		
+		<p:dataTable value="#{equipeMB.listaEquipes}" var="equipes" id="dtEquipe">
+			
+			<p:column headerText="Cod. Equipe" width="60">
+				<h:outputText value="#{equipes.id}"/>
+			</p:column>
+			
+			<p:column headerText="Nome Equipe">
+				<h:outputText value="#{equipes.nome}"/>
+			</p:column>
+			<p:column headerText="Ações" width="80">
+				<h:panelGroup>
+					<p:commandButton icon="ui-icon-pencil" action="#{equipeMB.preencherCampos}" 
+										update="@form" alt="Atualizar">
+						<f:setPropertyActionListener value="#{equipes}" target="#{equipeMB.equipeNome}"/>
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-trash" action="#{equipeMB.excluir}" 
+								update="@form :form_equipe:dtEquipe" alt="Excluir">
+						<f:setPropertyActionListener value="#{equipes}" target="#{equipeMB.equipeNome}"/>
+						<p:confirm header="Excluir Equipe" message="Deseja realmente excluir está equipe?" icon="ui-icon-alert"/>
+					</p:commandButton>
+				</h:panelGroup>
+			</p:column>
+		</p:dataTable>
+		</h:panelGrid>
+	</p:panel>
+	
+
+	<p:panel header="VISUALIZAR EQUIPES">
+		<h:panelGrid columns="1">
+		<h:outputLabel value="Grupos Existentes"/>
+			<p:tree value="#{equipeMB.root}" var="node" orientation="horizontal">
+				
+				<p:treeNode>
+						<h:outputText value="#{node}"/>
+				</p:treeNode>
+			</p:tree>
+			
+			<p:spacer height="190"/>
+		</h:panelGrid>
+	</p:panel>
+	
+</h:form>
+
+
+</ui:define>
+</ui:composition>

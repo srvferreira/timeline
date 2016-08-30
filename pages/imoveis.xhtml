@@ -1,0 +1,850 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/template/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+
+<ui:define name="conteudo">
+<h:outputScript library="primefaces" name="jquery/jquery.js" />
+<h:outputScript name="jquery.maskMoney.min.js" library="js"/>
+<h:outputScript name="imoveisMaskMoney.js" library="js"/>
+
+<h:form id="frmImoveis" prependId="false" style="font-size: 12px;">
+
+<p:messages closable="true" id="msgImovel" showDetail="true"/>
+<p:tabView id="tabImoveis-1">
+
+
+	<p:tab title="Informações Fiscais">
+	
+		<h:panelGrid columns="3">
+		
+		<p:panel header="Localização">
+		<h:panelGrid columns="4">
+			<h:outputLabel value="Cod."/>
+			<p:inputText id="cod" value="#{imMB.imoLocal.cod_imovel}" required="true"/>
+			
+			
+			<h:outputLabel value="Data"/>
+			<p:calendar id="data" value="#{imMB.data}" pattern="dd/MM/yyyy" required="true"/>
+		</h:panelGrid>
+		
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Nome do Imóvel"/>
+			<p:inputText id="nomeImovel" value="#{imMB.imoLocal.nome_imovel}" size="50" required="true"/>
+			
+			<h:outputLabel value="Rua"/>
+			<p:inputText id="logradouro" value="#{imMB.imoLocal.logradouro}" size="50" required="true"/>
+			</h:panelGrid>
+			
+			<h:panelGrid columns="4">
+				<h:outputLabel value="Número" />
+			    <p:inputText value="#{imMB.imoLocal.num}" size="5"/>
+			    
+			    <h:outputLabel value="Complemento"/>
+			    <p:inputText value="#{imMB.imoLocal.complemento}" size="5"/>
+			</h:panelGrid>
+			
+			<h:panelGrid columns="2">
+			<h:outputLabel value="Bairro"/>
+			<p:inputText id="bairro" value="#{imMB.imoLocal.bairro}" required="true"/>
+			
+			<h:outputLabel value="Cidade"/>
+			<p:inputText id="cidade" value="#{imMB.imoLocal.cidade}" required="true"/>
+			
+			<h:outputLabel value="UF"/>
+			<p:inputText id="uf" value="#{imMB.imoLocal.uf}" required="true"/>
+			
+			<h:outputLabel value="CEP"/>
+			<p:inputText value="#{imMB.imoLocal.cep}" />
+			
+			<h:outputLabel value="Tipo de Imóvel"/>
+			<p:selectOneMenu id="tipoImovel" value="#{imMB.imoLocal.tipo_imovel}" required="true">
+				<f:selectItem itemLabel="Escolha uma Opção" itemValue=""/>
+				<f:selectItem itemLabel="CASA"      itemValue="CASA"/>
+				<f:selectItem itemLabel="GALPÃO"    itemValue="GALPÃO"/>
+				<f:selectItem itemLabel="PRÉDIO"    itemValue="PRÉDIO"/>
+				<f:selectItem itemLabel="LOJA/SALA" itemValue="LOJA/SALA"/>
+				<f:selectItem itemLabel="TERRENO"   itemValue="TERRENO"/>
+				<f:selectItem itemLabel="OUTROS"    itemValue="OUTROS"/>
+			</p:selectOneMenu>
+			
+			
+			<h:outputLabel value="Estado de Conservação"/>
+			<p:selectOneMenu id="estadoConservacao" value="#{imMB.imoLocal.estado_conservacao}" required="true">
+				<f:selectItem itemLabel="Escolha uma Opção" itemValue=""/>
+				<f:selectItem itemLabel="BOM" itemValue="BOM"/>
+				<f:selectItem itemLabel="REGULAR" itemValue="REGULAR"/>
+				<f:selectItem itemLabel="RUIM" itemValue="RUIM"/>
+				<f:selectItem itemLabel="REFORMA" itemValue="REFORMA"/>
+				<f:selectItem itemLabel="CONSTRUÇÃO" itemValue="CONSTRUÇÃO"/>
+				<f:selectItem itemLabel="OUTROS" itemValue="OUTROS"/>
+			</p:selectOneMenu>
+		</h:panelGrid>
+		</p:panel>
+		
+		<p:spacer width="10"/>
+		
+		<p:panel header="Dimensões">
+			<p:panelGrid columns="4" >
+				<h:outputLabel value="Frente"/>
+				<p:inputText size="5" value="#{imMB.imoLocal.dimensao_frente}"/>
+				
+				<h:outputLabel value="Lado Esquerdo"/>
+				<p:inputText size="5" value="#{imMB.imoLocal.dimensao_esquerda}"/>
+				
+				<h:outputLabel value="Fundo"/>
+				<p:inputText size="5" value="#{imMB.imoLocal.dimensao_fundo}"/>
+				
+				<h:outputLabel value="Lado Direito"/>
+				<p:inputText size="5" value="#{imMB.imoLocal.dimensao_direita}"/>
+				
+				<h:outputLabel value="Área construída"/>
+				<p:inputText size="5" value="#{imMB.imoLocal.area_construida}"/>
+				
+				<h:outputLabel value="Área total"/>
+				<p:inputText size="5" value="#{imMB.imoLocal.area_total}"/>
+				
+			</p:panelGrid>
+			
+			<p:spacer height="200"/>
+		</p:panel>
+		
+		</h:panelGrid>
+		
+	</p:tab>
+	
+	<p:tab title="Utilização / Valor">
+	
+	
+		<h:panelGrid columns="3">
+		
+		<p:panel header="Utilização">
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Utilizador" />
+			<p:inputText size="50" value="#{imMB.imoUtilizador.utilizador}"/>
+			
+			<h:outputLabel value="Responsável"/>
+			<h:panelGrid columns="2">
+				<p:selectOneMenu value="#{imMB.imoUtilizador.responsavel}">
+					<f:selectItem itemLabel="Escolha uma Opção" itemValue=""/>
+					<f:selectItems value="#{imMB.listaRespo}" 
+					               var="r" itemLabel="#{r.responsavel}" itemValue="#{r.responsavel}"/>
+				</p:selectOneMenu>
+				<p:commandButton icon="ui-icon-plus" style="width:24px; height:24px;" oncomplete="PF('dlgRespImovel').show()"/>
+			</h:panelGrid>
+			
+			
+		<h:outputLabel value="Disponibilidade"/>
+		<p:selectOneMenu id="disponibilidade" value="#{imMB.imoUtilizador.disponibilidade}" required="true">
+			<f:selectItem itemLabel="Escolha uma Opção" itemValue="#"/>
+			<f:selectItem itemLabel="ABANDONADO" itemValue="DISPONÍVEL"/>
+			<f:selectItem itemLabel="EM USO" itemValue="EM USO"/>
+			<f:selectItem itemLabel="INVADIDO" itemValue="INVADIDO"/>
+		</p:selectOneMenu>
+		
+		<h:outputLabel value="Usado para"/>
+		<p:inputTextarea cols="30" rows="6" value="#{imMB.imoUtilizador.usado_para}"/>
+		</h:panelGrid>
+		
+		</p:panel>
+		
+		<p:spacer width="10"/>
+		<p:panel header="Valor">
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Valor do Imóvel"/>
+				<p:inputText id="vl_imovel" value="#{imMB.vaoorImovelEdit}">
+						<f:convertNumber maxFractionDigits="2" locale="pt_BR" pattern="#,##0.00"/>
+				</p:inputText>
+				
+				<h:outputLabel value="Valor do Terreno"/>
+				<p:inputText id="vl_terreno" value="#{imMB.valorTerrenoEdit}">
+					<f:convertNumber maxFractionDigits="2" locale="pt_BR" pattern="#,##0.00"/>
+				</p:inputText>
+				
+				<h:outputLabel value="Valor do Aluguel"/>
+				<p:inputText id="vl_aluguel" value="#{imMB.valorAluguelEdit}">
+					<f:convertNumber maxFractionDigits="2" locale="pt_BR" pattern="#,##0.00"/>
+				</p:inputText>
+				
+			</h:panelGrid>
+			<p:spacer height="110"></p:spacer>
+		</p:panel>
+		
+		</h:panelGrid>
+	</p:tab>
+	
+	<p:tab title="Legais">
+	
+	<p:panel header="Dados Cartorais">
+		
+		<h:panelGrid columns="6">
+			<h:outputLabel value="Possui Registro?"/>
+			<p:selectOneMenu value="#{imMB.imoLegais.registrado}">
+				<f:selectItem itemLabel="SIM" itemValue="SIM"/>
+				<f:selectItem itemLabel="NÃO" itemValue="NÃO"/>
+			</p:selectOneMenu>
+			
+			<h:outputLabel value="Cartório"/>
+			<p:selectOneMenu size="50" value="#{imMB.imoLegais.cartorio}">
+				<f:selectItem itemLabel="Escolha uma Opção" itemValue="#"/>
+				<f:selectItems value="#{imMB.listaCartorio}" var="crt" 
+				               itemLabel="#{crt.cartorio_nome}" itemValue="#{crt.cartorio_nome}"/>
+			</p:selectOneMenu>
+			
+			<p:commandButton icon="ui-icon-plus" style="width:24px; height:24px;" oncomplete="PF('dlgCartImovel').show()"/>
+			
+			<h:outputLabel/>
+			
+			<p:outputLabel value="Nº Registro"/>
+			<p:inputText value="#{imMB.imoLegais.registro}"/>
+			
+			<p:outputLabel value="Livro"/>
+			<h:panelGroup>
+			<p:inputText size="5" value="#{imMB.imoLegais.livro}"/>
+			<p:spacer width="5"/>
+			<p:outputLabel value="Folha"/>
+			<p:inputText size="5" value="#{imMB.imoLegais.folha}"/>
+			</h:panelGroup>
+			
+		</h:panelGrid>
+	</p:panel>
+	
+	<p:panel header="Dados do Proprietário">
+		<h:panelGrid columns="4">
+			<h:outputLabel value="Proprietário"/>
+			<p:selectOneMenu value="#{imMB.imoLegais.proprietario}">
+				<f:selectItem itemLabel="Esolha uma opção" itemValue="#"/>
+				<f:selectItems value="#{imMB.listaProprietario}" var="prp"
+							   itemLabel="#{prp.proprietario}" itemValue="#{prp.proprietario}"/>
+			</p:selectOneMenu>
+			
+			<p:commandButton icon="ui-icon-plus" style="width:24px; height:24px;" oncomplete="PF('dlgPropImovel').show()"/>
+			<h:outputLabel/>
+			
+			<h:outputLabel value="Situação"/>
+			<p:selectOneMenu value="#{imMB.imoLegais.situacao}">
+				<f:selectItem itemLabel="Escolha uma Opção" itemValue="#"/>
+				<f:selectItem itemLabel="PRÓRPRIO" itemValue="PRÓPPRIO"/>
+				<f:selectItem itemLabel="CESSÃO" itemValue="CESSÃO"/>
+				<f:selectItem itemLabel="LOCADO" itemValue="LOCADO"/>
+				<f:selectItem itemLabel="PERMISSÃO DE USO" itemValue="PERMISSÃO DE USO"/>
+				<f:selectItem itemLabel="PENHORADO" itemValue="PENHORADO"/>
+				<f:selectItem itemLabel="OUTROS" itemValue="OUTROS"/>
+			</p:selectOneMenu>
+			
+			
+			<h:outputLabel value="Contrato em Vigor?"/>
+			<p:selectOneMenu value="#{imMB.imoLegais.contrato}">
+				<f:selectItem itemLabel="Escolha uma opção" itemValue="#"/>
+				<f:selectItem itemLabel="NÃO" itemValue="NAO"/>
+				<f:selectItem itemLabel="SIM" itemValue="SIM"/>
+			</p:selectOneMenu>
+		</h:panelGrid>
+	</p:panel>
+	</p:tab>
+	
+	<p:tab title="Outras informações">
+	<h:panelGrid columns="2">
+	
+		<h:outputLabel value="Observações"/>
+		<p:inputTextarea cols="50" rows="10" value="#{imMB.imoLocal.outras_informacoes}"/>
+	</h:panelGrid>
+	</p:tab>
+
+	
+</p:tabView>
+
+
+<p:panel>
+ <p:commandButton value="Salvar" icon="ui-icon-check" action="#{imMB.salvar}" update=":frmImoveis"/>
+ <p:commandButton value="Atualizar" icon="ui-icon-refresh" action="#{imMB.atualizar}" update=":frmImoveis"/>
+</p:panel>
+
+
+<p:dialog header="Cadastro de Responsável" widgetVar="dlgRespImovel">
+	
+	 
+	 			
+			
+				 <h:panelGrid columns="2"  id="pgRespImovel">
+					
+					<h:outputLabel value="Responsável"/> 
+					<p:inputText size="50" value="#{respImoMB.respImo.responsavel}"/>
+					
+					<h:outputLabel value="logradouro"/>
+					
+					<h:panelGrid columns="3">
+					<p:inputText value="#{respImoMB.respImo.logradouro}"/>
+					
+					<h:outputLabel value="Numero"/>
+					<p:inputText size="5" value="#{respImoMB.respImo.num}"/>
+					</h:panelGrid>
+					
+					<h:outputLabel value="Complemento"/>
+					
+					<h:panelGrid columns="3">
+					<p:inputText size="5" value="#{respImoMB.respImo.complemento}"/>
+					
+					<h:outputLabel value="CEP"/>
+					<p:inputMask mask="99.999-999" value="#{respImoMB.respImo.cep}"/>
+					</h:panelGrid>
+					
+					
+					<h:outputLabel value="Bairro"/>
+					
+					<h:panelGrid columns="3">
+					<p:inputText value="#{respImoMB.respImo.bairro}"/>
+					
+					<h:outputLabel value="Cidade"/>
+					<p:inputText value="#{respImoMB.respImo.cidade}"/>
+					</h:panelGrid>
+					
+					
+					<h:outputLabel value="Estado"/>
+					
+					<h:panelGrid columns="3">
+					<p:inputText value="#{respImoMB.respImo.estado}"/>
+					
+					<h:outputLabel value="E-mail"/>
+					<p:inputText size="30" value="#{respImoMB.respImo.email}"/>
+					</h:panelGrid>
+					
+					
+					<h:outputLabel value="Telefone"/>
+					<p:inputMask mask="(99)9999-9999" value="#{respImoMB.respImo.fone}"/>
+					
+				</h:panelGrid>
+				
+				<h:panelGrid columns="3">
+					<p:commandButton value="Salvar" action="#{respImoMB.salvar}" update=":frmImoveis:pgRespImovel, :frmImoveis:msgImovel, :frmImoveis:dtRespImovel"/>
+					<p:commandButton value="Atualizar" action="#{respImoMB.atualizar}" update=":frmImoveis:pgRespImovel, :frmImoveis:msgImovel, :frmImoveis:dtRespImovel"/>
+				
+				</h:panelGrid>
+				
+				
+				<p:outputPanel>
+					<p:dataTable id="dtRespImovel" value="#{respImoMB.listaResp}" var="lstResp">
+						
+						<p:column headerText="ID">
+							<h:outputText value="#{lstResp.id}"/>
+						</p:column>
+						
+						<p:column headerText="Responsável">
+							<h:outputText value="#{lstResp.responsavel}"/>
+						</p:column>
+						
+						<p:column headerText="E-mail">
+							<h:outputText value="#{lstResp.email}"/>
+						</p:column>
+						
+						<p:column headerText="Telefone">
+							<h:outputText value="#{lstResp.fone}"/>
+						</p:column>
+						
+						<p:column>
+							<p:commandButton action="#{respImoMB.preencherCampos}" icon="ui-icon-clipboard" 
+							                 style="width:24px; height: 24px;" title="Atualizar" update=":frmImoveis:pgRespImovel">
+							<p:confirm header="Editar Responsável" message="Deseja Realmente Editar este responsável?"/>
+								<f:setPropertyActionListener target="#{respImoMB.respImoEdit}" value="#{lstResp}"/>
+							</p:commandButton>
+							
+							<p:commandButton icon="ui-icon-trash" style="width:24px; height: 24px;" title="Excluir"
+							                 action="#{respImoMB.excluir}" update=":frmImoveis:pgRespImovel, :frmImoveis:msgImovel, :frmImoveis:dtRespImovel">
+								<p:confirm header="Excluir Responsável" message="Deseja Realmente Excluir este Responsável?"/>
+								<f:setPropertyActionListener target="#{respImoMB.respImoEdit}" value="#{lstResp}"/>
+							</p:commandButton>
+						</p:column>
+						
+						<f:facet name="footer">
+							<p:commandButton value="Listar" action="#{respImoMB.listarResponsaveis}" update=":frmImoveis:dtRespImovel"/>
+						</f:facet>
+					</p:dataTable>
+				</p:outputPanel>
+	
+</p:dialog>
+
+
+<p:dialog header="Cadastro de Cartório" widgetVar="dlgCartImovel">
+	
+	 
+	 			
+			
+				 <h:panelGrid columns="2"  id="pgCartImovel">
+					
+					<h:outputLabel value="Cartório"/> 
+					<p:inputText size="50" value="#{cartMB.cartorio.cartorio_nome}"/>
+					
+					<h:outputLabel value="logradouro"/>
+					
+					<h:panelGrid columns="3">
+					<p:inputText value="#{cartMB.cartorio.logradouro}"/>
+					
+					<h:outputLabel value="Numero"/>
+					<p:inputText size="5" value="#{cartMB.cartorio.num}"/>
+					</h:panelGrid>
+					
+					<h:outputLabel value="Complemento"/>
+					
+					<h:panelGrid columns="3">
+					<p:inputText size="5" value="#{cartMB.cartorio.complemento}"/>
+					
+					<h:outputLabel value="CEP"/>
+					<p:inputMask mask="99.999-999" value="#{cartMB.cartorio.cep}"/>
+					</h:panelGrid>
+					
+					
+					<h:outputLabel value="Bairro"/>
+					
+					<h:panelGrid columns="3">
+					<p:inputText value="#{cartMB.cartorio.bairro}"/>
+					
+					<h:outputLabel value="Cidade"/>
+					<p:inputText value="#{cartMB.cartorio.cidade}"/>
+					</h:panelGrid>
+					
+					
+					<h:outputLabel value="Estado"/>
+					
+					<h:panelGrid columns="3">
+					<p:inputText value="#{cartMB.cartorio.estado}"/>
+					
+					<h:outputLabel value="E-mail"/>
+					<p:inputText size="30" value="#{cartMB.cartorio.email}"/>
+					</h:panelGrid>
+					
+					
+					<h:outputLabel value="Telefone"/>
+					<p:inputMask mask="(99)9999-9999" value="#{cartMB.cartorio.fone}"/>
+					
+				</h:panelGrid>
+				
+				<h:panelGrid columns="3">
+					<p:commandButton value="Salvar" action="#{cartMB.salvar}" update=":frmImoveis:pgCartImovel, :frmImoveis:msgImovel, :frmImoveis:dtCartImovel"/>
+					<p:commandButton value="Atualizar" action="#{cartMB.atualizar}" update=":frmImoveis:pgCartImovel, :frmImoveis:msgImovel, :frmImoveis:dtCartImovel"/>
+				
+				</h:panelGrid>
+				
+				
+				<p:outputPanel>
+					<p:dataTable id="dtCartImovel" value="#{cartMB.listaCartorio}" var="lstCart">
+						
+						<p:column headerText="ID">
+							<h:outputText value="#{lstCart.id}"/>
+						</p:column>
+						
+						<p:column headerText="Responsável">
+							<h:outputText value="#{lstCart.cartorio_nome}"/>
+						</p:column>
+						
+						<p:column headerText="E-mail">
+							<h:outputText value="#{lstCart.email}"/>
+						</p:column>
+						
+						<p:column headerText="Telefone">
+							<h:outputText value="#{lstCart.fone}"/>
+						</p:column>
+						
+						<p:column>
+							<p:commandButton action="#{cartMB.preencherCampos}" icon="ui-icon-clipboard" 
+							                 style="width:24px; height: 24px;" title="Atualizar" update=":frmImoveis:pgCartImovel">
+							<p:confirm header="Editar Cartório" message="Deseja Realmente Editar este Cartório?"/>
+								<f:setPropertyActionListener target="#{cartMB.cartorioEdit}" value="#{lstCart}"/>
+							</p:commandButton>
+							
+							<p:commandButton icon="ui-icon-trash" style="width:24px; height: 24px;" title="Excluir"
+							                 action="#{cartMB.excluir}" update=":frmImoveis:pgCartImovel, :frmImoveis:msgImovel, :frmImoveis:dtCartImovel">
+								<p:confirm header="Excluir Cartório" message="Deseja Realmente Excluir este Cartório?"/>
+								<f:setPropertyActionListener target="#{cartMB.cartorioEdit}" value="#{lstCart}"/>
+							</p:commandButton>
+						</p:column>
+						
+						<f:facet name="footer">
+							<p:commandButton value="Listar" action="#{cartMB.retornarCartorios}" update=":frmImoveis:dtCartImovel"/>
+						</f:facet>
+					</p:dataTable>
+				</p:outputPanel>
+	
+</p:dialog>
+
+
+<p:dialog header="Cadastro de Proprietário" widgetVar="dlgPropImovel">
+	
+			
+				 <h:panelGrid columns="2"  id="pgPropImovel">
+					
+					<h:outputLabel value="Proprietário"/> 
+					<p:inputText size="50" value="#{propImoMB.proprietario.proprietario}"/>
+					
+					<h:outputLabel value="logradouro"/>
+					
+					<h:panelGrid columns="3">
+					<p:inputText value="#{propImoMB.proprietario.logradouro}"/>
+					
+					<h:outputLabel value="Numero"/>
+					<p:inputText size="5" value="#{propImoMB.proprietario.num}"/>
+					</h:panelGrid>
+					
+					<h:outputLabel value="Complemento"/>
+					
+					<h:panelGrid columns="3">
+					<p:inputText size="5" value="#{propImoMB.proprietario.complemento}"/>
+					
+					<h:outputLabel value="CEP"/>
+					<p:inputMask mask="99.999-999" value="#{propImoMB.proprietario.cep}"/>
+					</h:panelGrid>
+					
+					
+					<h:outputLabel value="Bairro"/>
+					
+					<h:panelGrid columns="3">
+					<p:inputText value="#{propImoMB.proprietario.bairro}"/>
+					
+					<h:outputLabel value="Cidade"/>
+					<p:inputText value="#{propImoMB.proprietario.cidade}"/>
+					</h:panelGrid>
+					
+					
+					<h:outputLabel value="Estado"/>
+					
+					<h:panelGrid columns="3">
+					<p:inputText value="#{propImoMB.proprietario.estado}"/>
+					
+					<h:outputLabel value="E-mail"/>
+					<p:inputText size="30" value="#{propImoMB.proprietario.email}"/>
+					</h:panelGrid>
+					
+					
+					<h:outputLabel value="Telefone"/>
+					<p:inputMask mask="(99)9999-9999" value="#{propImoMB.proprietario.fone}"/>
+					
+				</h:panelGrid>
+				
+				<h:panelGrid columns="3">
+					<p:commandButton value="Salvar" action="#{propImoMB.salvar}" update=":frmImoveis:pgPropImovel, :frmImoveis:msgImovel, :frmImoveis:dtPropImovel"/>
+					<p:commandButton value="Atualizar" action="#{propImoMB.atualizar}" update=":frmImoveis:pgPropImovel, :frmImoveis:msgImovel, :frmImoveis:dtPropImovel"/>
+				
+				</h:panelGrid>
+				
+				
+				<p:outputPanel>
+					<p:dataTable id="dtPropImovel" value="#{propImoMB.listaProprietario}" var="lstProp">
+						
+						<p:column headerText="ID">
+							<h:outputText value="#{lstProp.id}"/>
+						</p:column>
+						
+						<p:column headerText="Responsável">
+							<h:outputText value="#{lstProp.proprietario}"/>
+						</p:column>
+						
+						<p:column headerText="E-mail">
+							<h:outputText value="#{lstProp.email}"/>
+						</p:column>
+						
+						<p:column headerText="Telefone">
+							<h:outputText value="#{lstProp.fone}"/>
+						</p:column>
+						
+						<p:column>
+							<p:commandButton action="#{propImoMB.preencherCampos}" icon="ui-icon-clipboard" 
+							                 style="width:24px; height: 24px;" title="Atualizar" update=":frmImoveis:pgPropImovel">
+							<p:confirm header="Editar Proprietário" message="Deseja Realmente Editar este Proprietário?"/>
+								<f:setPropertyActionListener target="#{propImoMB.proprietarioEdit}" value="#{lstProp}"/>
+							</p:commandButton>
+							
+							<p:commandButton icon="ui-icon-trash" style="width:24px; height: 24px;" title="Excluir"
+							                 action="#{propImoMB.excluir}" update=":frmImoveis:pgPropImovel, :frmImoveis:msgImovel, :frmImoveis:dtPropImovel">
+								<p:confirm header="Excluir Proprietário" message="Deseja Realmente Excluir este Proprietário?"/>
+								<f:setPropertyActionListener target="#{propImoMB.proprietarioEdit}" value="#{lstProp}"/>
+							</p:commandButton>
+						</p:column>
+						
+						<f:facet name="footer">
+							<p:commandButton value="Listar" action="#{propImoMB.listarProprietarios}" update=":frmImoveis:dtPropImovel"/>
+						</f:facet>
+					</p:dataTable>
+				</p:outputPanel>
+	
+</p:dialog>
+
+
+<p:confirmDialog global="true">
+	<p:commandButton value="SIM" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+	<p:commandButton value="NÃO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+</p:confirmDialog>
+
+<h:inputHidden id="vl_aluguel" value="#{imMB.imoLocal.valor_aluguel}"/>
+<h:inputHidden id="vl_imovel" value="#{imMB.imoLocal.valor_imovel}"/>
+<h:inputHidden id="vl_terreno" value="#{imMB.imoLocal.valor_terreno}"/>
+
+</h:form>
+
+<h:form id="formPesq" prependId="false">
+
+<h:inputHidden id="vl_aluguelpIni" value="#{imMB.vlAluguelIni}"/>
+<h:inputHidden id="vl_aluguelpFim" value="#{imMB.vlAluguelFim}"/>
+<h:inputHidden id="vl_terrenopIni" value="#{imMB.vlTerrenoIni}"/>
+<h:inputHidden id="vl_terrenopFim" value="#{imMB.vlTerrenoFim}"/>
+<h:inputHidden id="vl_imovelpIni" value="#{imMB.vlImovelIni}"/>
+<h:inputHidden id="vl_imovelpFim" value="#{imMB.vlImovelFim}"/>
+
+<p:panel header="Pesquisar">
+		
+		<p:tabView id="tabImoveisProcurar">
+			<p:tab title="Endereço">
+				
+				<h:panelGrid columns="6">
+					
+					<h:outputLabel value="Cod. Imóvel"/>
+					<p:inputText value="#{imMB.infoImovelPesq.cod_imovel}"/>
+					
+					<h:outputLabel value="logradouro"/>
+					<p:inputText value="#{imMB.infoImovelPesq.logradouro}"/>
+					
+					<h:outputLabel value="Número"/>
+					<p:inputText value="#{imMB.infoImovelPesq.num}" size="5"/>
+					
+					<h:outputLabel value="Complemento"/>
+					<p:inputText value="#{imMB.infoImovelPesq.complemento}" size="5"/>
+					
+					<h:outputLabel value="CEP"/>
+					<p:inputMask mask="#{imMB.mascaraCep}" value="#{imMB.infoImovelPesq.cep}"/>
+					
+					<h:outputLabel value="Nome de Imóvel"/>
+					<p:inputText value="#{imMB.infoImovelPesq.nome_imovel}"/>
+					
+					<h:outputLabel value="Bairro"/>
+					<p:inputText value="#{imMB.infoImovelPesq.bairro}"/>
+					
+					<h:outputLabel value="Cidade"/>
+					<p:inputText value="#{imMB.infoImovelPesq.cidade}"/>
+					
+					
+					<h:outputLabel value="Tipo de Imóvel"/>
+						<p:selectOneMenu id="tipoImovel" value="#{imMB.infoImovelPesq.tipo_imovel}">
+							<f:selectItem itemLabel="Escolha uma Opção" itemValue=""/>
+							<f:selectItem itemLabel="CASA"      itemValue="CASA"/>
+							<f:selectItem itemLabel="GALPÃO"    itemValue="GALPÃO"/>
+							<f:selectItem itemLabel="PRÉDIO"    itemValue="PRÉDIO"/>
+							<f:selectItem itemLabel="LOJA/SALA" itemValue="LOJA/SALA"/>
+							<f:selectItem itemLabel="TERRENO"   itemValue="TERRENO"/>
+							<f:selectItem itemLabel="OUTROS"    itemValue="OUTROS"/>
+						</p:selectOneMenu>
+					
+					<h:outputLabel value="Estado"/>
+					<p:inputText value="#{imMB.infoImovelPesq.uf}"/>
+					
+					<h:outputLabel value="Estado de Conservação"/>
+					<p:selectOneMenu value="#{imMB.infoImovelPesq.estado_conservacao}">
+						<f:selectItem itemLabel="Escolha uma Opção" itemValue=""/>
+						<f:selectItem itemLabel="BOM" itemValue="BOM"/>
+						<f:selectItem itemLabel="REGULAR" itemValue="REGULAR"/>
+						<f:selectItem itemLabel="RUIM" itemValue="RUIM"/>
+						<f:selectItem itemLabel="REFORMA" itemValue="REFORMA"/>
+						<f:selectItem itemLabel="CONSTRUÇÃO" itemValue="CONSTRUÇÃO"/>
+						<f:selectItem itemLabel="OUTROS" itemValue="OUTROS"/>
+				</p:selectOneMenu>
+				</h:panelGrid>
+			</p:tab>
+			
+			<p:tab title="Ultilização">
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Utilizador"/>
+					<p:inputText style="width:300px;" value="#{imMB.infoImovelPesq.utilizador}"/>
+					
+					<h:outputLabel value="Responsável"/>
+					<p:selectOneMenu value="#{imMB.infoImovelPesq.responsavel}">
+					<f:selectItem itemLabel="Escolha uma Opção" itemValue=""/>
+					<f:selectItems value="#{imMB.listaRespo}" 
+					               var="r" itemLabel="#{r.responsavel}" itemValue="#{r.responsavel}"/>
+				</p:selectOneMenu>
+					
+					<h:outputLabel value="Disponibiliadde"/>
+					<p:selectOneMenu value="#{imMB.infoImovelPesq.disponibilidade}">
+			<f:selectItem itemLabel="Escolha uma Opção" itemValue=""/>
+			<f:selectItem itemLabel="ABANDONADO" itemValue="DISPONÍVEL"/>
+			<f:selectItem itemLabel="EM USO" itemValue="EM USO"/>
+			<f:selectItem itemLabel="INVADIDO" itemValue="INVADIDO"/>
+		</p:selectOneMenu>
+		
+		<h:outputLabel value="Usado para"/>
+		<p:inputTextarea cols="30" rows="6" value="#{imMB.infoImovelPesq.usado_para}"/>
+				</h:panelGrid>
+			</p:tab>
+			
+			<p:tab title="Dimensão">
+				<h:panelGrid columns="4">
+					<h:outputLabel value="Frente"/>
+					<p:inputText size="7" value="#{imMB.infoImovelPesq.dimensao_frente}"/>
+					
+					<h:outputLabel value="Lado Esquerdo"/>
+					<p:inputText size="7" value="#{imMB.infoImovelPesq.dimensao_esquerda}"/>
+					
+					<h:outputLabel value="Fundo"/>
+					<p:inputText size="7" value="#{imMB.infoImovelPesq.dimensao_fundo}"/>
+					
+					<h:outputLabel value="Lado Direito"/>
+					<p:inputText size="7" value="#{imMB.infoImovelPesq.dimensao_direita}"/>
+				</h:panelGrid>
+			</p:tab>
+			
+			<p:tab title="Período">
+				<h:panelGrid columns="4">
+					<h:outputLabel value="De"/>
+					<p:calendar navigator="true" showOn="both" pattern="dd/MM/yyyy" value="#{imMB.dataPesqIni}" />
+					<h:outputLabel value="Até"/>
+					<p:calendar navigator="true" showOn="both" pattern="dd/MM/yyyy" value="#{imMB.dataPesqFim}"/>
+				</h:panelGrid>
+			</p:tab>
+			
+			<p:tab title="Legais">
+				<p:panelGrid columns="6">
+			<h:outputLabel value="Possui Registro?"/>
+			<p:selectOneMenu value="#{imMB.infoImovelPesq.registrado}">
+				<f:selectItem itemLabel="Escolha uma Opção" itemValue=""/>
+				<f:selectItem itemLabel="SIM" itemValue="SIM"/>
+				<f:selectItem itemLabel="NÃO" itemValue="NÃO"/>
+			</p:selectOneMenu>
+			
+			<h:outputLabel value="Cartório"/>
+			<p:inputText size="50" value="#{imMB.infoImovelPesq.cartorio}"/>
+			
+			<h:outputLabel/>
+			
+			<h:outputLabel/>
+			
+			<p:outputLabel value="Nº Registro"/>
+			<p:inputText value="#{imMB.infoImovelPesq.registro}"/>
+			
+			<p:outputLabel value="Livro"/>
+			<h:panelGroup>
+			<p:inputText size="5" value="#{imMB.infoImovelPesq.livro}"/>
+			<p:spacer width="5"/>
+			<p:outputLabel value="Folha"/>
+			<p:inputText size="5" value="#{imMB.infoImovelPesq.folha}"/>
+			</h:panelGroup>
+			
+		</p:panelGrid>
+			</p:tab>
+			
+			<p:tab title="Proprietário">
+				<h:panelGrid columns="6">
+			<h:outputLabel value="Proprietário"/>
+			<p:selectOneMenu value="#{imMB.infoImovelPesq.proprietario}">
+				<f:selectItem itemLabel="Esolha uma opção" itemValue=""/>
+				<f:selectItems value="#{imMB.listaProprietario}" var="prp"
+							   itemLabel="#{prp.proprietario}" itemValue="#{prp.proprietario}"/>
+			</p:selectOneMenu>
+			
+			
+			
+			<h:outputLabel value="Situação"/>
+			<p:selectOneMenu value="#{imMB.infoImovelPesq.situacao}">
+				<f:selectItem itemLabel="Escolha uma Opção" itemValue=""/>
+				<f:selectItem itemLabel="PRÓRPRIO" itemValue="PRÓPPRIO"/>
+				<f:selectItem itemLabel="CESSÃO" itemValue="CESSÃO"/>
+				<f:selectItem itemLabel="LOCADO" itemValue="LOCADO"/>
+				<f:selectItem itemLabel="PERMISSÃO DE USO" itemValue="PERMISSÃO DE USO"/>
+				<f:selectItem itemLabel="PENHORADO" itemValue="PENHORADO"/>
+				<f:selectItem itemLabel="OUTROS" itemValue="OUTROS"/>
+			</p:selectOneMenu>
+			
+			
+			
+			<h:outputLabel value="Contrato em Vigor?"/>
+			<p:selectOneMenu value="#{imMB.infoImovelPesq.contrato}">
+				<f:selectItem itemLabel="Escolha uma opção" itemValue=""/>
+				<f:selectItem itemLabel="NÃO" itemValue="NAO"/>
+				<f:selectItem itemLabel="SIM" itemValue="SIM"/>
+			</p:selectOneMenu>
+		</h:panelGrid>
+			</p:tab>
+			
+			<p:tab title="Valor">
+				<h:panelGrid columns="4">
+				<h:outputLabel value="Valor do Imóvel de"/>
+				<p:inputText id="valorImovelIni" size="7"/>
+				
+				<h:outputLabel value="Até"/>
+				<p:inputText id="valorImovelFim" size="7"/>
+				
+				<h:outputLabel value="Valor do Terreno de"/>
+				<p:inputText id="valorTerrenoIni" size="7"/>
+				
+				<h:outputLabel value="Até"/>
+				<p:inputText id="valorTerrenoFim" size="7"/>
+				
+				<h:outputLabel value="Valor do Aluguel de"/>
+				<p:inputText id="valorAluguelIni" size="7"/>
+				
+				<h:outputLabel value="Até"/>
+				<p:inputText id="valorAluguelFim" size="7"/>
+			</h:panelGrid>
+			</p:tab>
+			
+		</p:tabView>
+		<p:messages closable="true" id="msgPesquisa" showDetail="true"/>
+		<p:panel>
+		<p:commandButton value="Pesquisar" action="#{imMB.pesquisar}" update=":formPesq:msgPesquisa, :formPesq:dtPesquisa"/>
+		<p:spacer height="20"/>
+			<p:dataTable id="dtPesquisa" value="#{imMB.lista}" var="lstPesq">
+				<p:column headerText="Cod. Imóvel">
+					<h:outputText value="#{lstPesq.cod_imovel}"/>
+				</p:column>
+				
+				<p:column headerText="Nome do Imóvel">
+					<h:outputText value="#{lstPesq.nome_imovel}"/>
+				</p:column>
+				
+				<p:column headerText="Responsável">
+					<h:outputText value="#{lstPesq.responsavel}"/>
+				</p:column>
+				
+				<p:column headerText="Utilizador">
+					<h:outputText value="#{lstPesq.utilizador}"/>
+				</p:column>
+				
+				<p:column headerText="Tipo de Imóvel">
+					<h:outputText value="#{lstPesq.tipo_imovel}"/>
+				</p:column>
+				
+				<p:column headerText="Proprietário">
+					<h:outputText value="#{lstPesq.proprietario}"/>
+				</p:column>
+				
+				<p:column headerText="Data">
+					<h:outputText value="#{lstPesq.data_atesto}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</p:column>
+				
+				<p:column>
+					<p:commandButton action="#{imMB.preencherCampos}" style="width:24px; height:24px;" title="editar" icon="ui-icon-clipboard" update=":frmImoveis">
+						<f:setPropertyActionListener target="#{imMB.infoImovel}" value="#{lstPesq}"/>
+					</p:commandButton>
+				</p:column>
+				
+				<p:column>
+					<p:commandButton action="#{imMB.excluir}" style="width:24px; height:24px;" title="editar" icon="ui-icon-trash" update=":frmImoveis">
+						<f:setPropertyActionListener target="#{imMB.infoImovel}" value="#{lstPesq}"/>
+						<p:confirm header="Excluir Imóvel" message="Deseja realmente excluir este imóvel?"/>
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+		
+	
+
+</p:panel>
+
+<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+	<p:commandButton value="SIM" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+	<p:commandButton value="NÃO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+</p:confirmDialog>
+</h:form>
+</ui:define>
+</ui:composition>

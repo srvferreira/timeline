@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/exemplo" docBase="exemplo">
+ 
+<!-- datasource -->
+    <Resource name="jdbc/cpatri"
+              auth="Container"
+              scope="Shareable"
+              type="javax.sql.DataSource"
+              username="adminlwC5Kzl"
+              password="l77qNavJb5dU"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="mysql://${OPENSHIFT_MYSQL_DB_HOST}:${OPENSHIFT_MYSQL_DB_PORT}/timeline3"
+              maxActive="100"
+              maxIdle="30"
+              maxWait="20"/>
+</Context>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/template/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+
+<ui:define name="conteudo">
+<h:form id="form_comp">
+	<p:panel header="Relatório Comparativo">
+		<h:panelGrid columns="2">
+			<h:panelGrid columns="2">
+			<h:outputLabel value="Ano Inicial"/>
+			<p:spinner value="#{testRelatorioMB.anoInicial}" stepFactor="1" size="3"/>
+			
+			<h:outputLabel value="Ano Final"/>
+			<p:spinner value="#{testRelatorioMB.anoFinal}" size="3"/>
+			</h:panelGrid>
+			<h:panelGrid columns="1">
+				<p:commandButton value="Relatório de Aquisições" action="#{testRelatorioMB.relatorioComparativoSintetico()}" ajax="false" onclick="this.form.target='_blank'"/>
+				<p:commandButton value="Relatório de Baixas" action="#{testRelatorioMB.relatorioComparativoSinteticoBaixas()}" ajax="false" onclick="this.form.target='_blank'"/>
+				<p:commandButton value="Relatório 3" action="#{testRelatorioMB.gerarRealtorioTete2()}" ajax="false" onclick="this.form.target='_blank'"/>
+			</h:panelGrid>
+		</h:panelGrid>
+	</p:panel>
+</h:form>
+</ui:define>
+</ui:composition>

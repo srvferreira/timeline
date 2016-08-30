@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioCompAnual" language="groovy" pageWidth="1000" pageHeight="792" columnWidth="960" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d33032fc-a282-4467-b199-893518af3df9">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nome_empresa" class="java.lang.String"/>
+	<parameter name="endereco_empresa" class="java.lang.String"/>
+	<parameter name="cnpj_empresa" class="java.lang.String"/>
+	<parameter name="fone_empresa" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="entradas" class="java.lang.Double">
+		<fieldDescription><![CDATA[entradas]]></fieldDescription>
+	</field>
+	<field name="depreciacaoAcumulada" class="java.lang.Double">
+		<fieldDescription><![CDATA[depreciacaoAcumulada]]></fieldDescription>
+	</field>
+	<field name="desc_conta" class="java.lang.String">
+		<fieldDescription><![CDATA[desc_conta]]></fieldDescription>
+	</field>
+	<field name="contaContabil" class="java.lang.String">
+		<fieldDescription><![CDATA[contaContabil]]></fieldDescription>
+	</field>
+	<field name="ano" class="java.lang.String">
+		<fieldDescription><![CDATA[ano]]></fieldDescription>
+	</field>
+	<field name="valorBruto" class="java.lang.Double">
+		<fieldDescription><![CDATA[valorBruto]]></fieldDescription>
+	</field>
+	<field name="baixas" class="java.lang.Double">
+		<fieldDescription><![CDATA[baixas]]></fieldDescription>
+	</field>
+	<field name="valorLiquido" class="java.lang.Double">
+		<fieldDescription><![CDATA[valorLiquido]]></fieldDescription>
+	</field>
+	<field name="valorExercicioAtual" class="java.lang.Double">
+		<fieldDescription><![CDATA[valorExercicioAtual]]></fieldDescription>
+	</field>
+	<variable name="entradas_1" class="java.lang.Double" resetType="Group" resetGroup="ano" calculation="Sum">
+		<variableExpression><![CDATA[$F{entradas}]]></variableExpression>
+	</variable>
+	<variable name="baixas_1" class="java.lang.Double" resetType="Group" resetGroup="ano" calculation="Sum">
+		<variableExpression><![CDATA[$F{baixas}]]></variableExpression>
+	</variable>
+	<variable name="valorExercicioAtual_1" class="java.lang.Double" resetType="Group" resetGroup="ano" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorExercicioAtual}]]></variableExpression>
+	</variable>
+	<variable name="depreciacaoAcumulada_1" class="java.lang.Double" resetType="Group" resetGroup="ano" calculation="Sum">
+		<variableExpression><![CDATA[$F{depreciacaoAcumulada}]]></variableExpression>
+	</variable>
+	<variable name="valorLiquido_1" class="java.lang.Double" resetType="Group" resetGroup="ano" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorLiquido}]]></variableExpression>
+	</variable>
+	<variable name="valorBruto_1" class="java.lang.Double" resetType="Group" resetGroup="ano" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorBruto}]]></variableExpression>
+	</variable>
+	<group name="ano">
+		<groupExpression><![CDATA[$F{ano}]]></groupExpression>
+		<groupHeader>
+			<band height="33">
+				<rectangle>
+					<reportElement uuid="c5c9c56e-9353-4660-be66-3679a7f15d78" x="0" y="0" width="960" height="15" backcolor="#F8F6F6"/>
+					<graphicElement>
+						<pen lineWidth="0.0"/>
+					</graphicElement>
+				</rectangle>
+				<textField>
+					<reportElement uuid="d6024be5-be89-4366-8ef4-6a7e242ed527" x="33" y="0" width="100" height="15"/>
+					<textElement verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$F{ano}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="e6ca3ed9-07e5-4c11-aac4-50aba537c7af" x="3" y="0" width="38" height="15"/>
+					<textElement/>
+					<text><![CDATA[ANO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="aa6d58bb-1c47-46b8-988d-bec5c6897fdb" x="3" y="17" width="100" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CONTA CONTÁBIL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="b0129459-312e-4065-8c5d-432dfa2fc175" x="310" y="17" width="100" height="15"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[VR EXERC. ANTERIOR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="bad0d565-d06f-4385-96ab-12897a476522" x="409" y="17" width="100" height="15"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ENTRADAS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="0b26945d-2a53-4104-b664-b31b425da9db" x="508" y="17" width="100" height="15"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[BAIXAS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f609f60c-2a02-4142-b58b-780b9b603829" x="633" y="17" width="100" height="15"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[VR EXERC. ATUAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="31ce5d60-99f9-481a-a875-44c81ae0044a" x="739" y="17" width="100" height="15"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DEP. ACUMULADA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="91fca8f7-3a7f-44f7-88fe-ff636547643d" x="849" y="17" width="100" height="15"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[VALOR LÍQUIDO]]></text>
+				</staticText>
+				<line>
+					<reportElement uuid="bdc09a7b-8830-426e-b909-ab10e7b4f2bb" x="0" y="15" width="960" height="1"/>
+					<graphicElement>
+						<pen lineStyle="Solid" lineColor="#E2E0E0"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement uuid="f97387ea-3f20-40db-8b2e-c4e5df84c18c" x="103" y="16" width="100" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[NOME DA CONTA]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="16">
+				<rectangle>
+					<reportElement uuid="26009515-0b1e-48b5-8360-ccbd5aa7a5a7" x="0" y="0" width="960" height="16" backcolor="#CC0000"/>
+				</rectangle>
+				<textField pattern="¤ #,##0.00">
+					<reportElement uuid="070ea41b-ab39-46e2-8750-4b2ee1f3ec53" x="408" y="0" width="100" height="15" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{entradas_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement uuid="57c15307-9125-475a-8193-ac70889b2606" x="507" y="0" width="100" height="15" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{baixas_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement uuid="e80686d2-b5c2-4d49-8be6-a519145ccfc2" x="632" y="0" width="100" height="15" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{valorExercicioAtual_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement uuid="8b111f1e-194d-4b8f-8978-fa857333780c" x="848" y="0" width="100" height="15" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{valorLiquido_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="20698173-0196-4923-be3f-cea1d81499af" x="3" y="0" width="100" height="15" forecolor="#FFFFFF"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SUBTOTAIS]]></text>
+				</staticText>
+				<textField pattern="¤ #,##0.00">
+					<reportElement uuid="e1a9c427-908a-41e4-8dc3-83df169fc198" x="311" y="0" width="100" height="15" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{valorBruto_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement uuid="e205cb1c-d37e-49cc-83b3-eb1b4f6f9f03" x="739" y="0" width="100" height="15" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{depreciacaoAcumulada_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="105" splitType="Stretch">
+			<textField>
+				<reportElement uuid="5c9a4b2b-42bb-48a6-9ee2-1f804cf9f9b4" x="102" y="3" width="442" height="30"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Relatório Comparativo Anual"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8c813da5-e668-42e0-98e4-82b784413c55" x="102" y="76" width="270" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fone_empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ad7ed5b4-eb8c-4fdd-9f1a-50ec2d535296" x="102" y="46" width="650" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{endereco_empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4ca23ef6-8253-4aee-85be-1757c9c6d9c2" x="102" y="61" width="269" height="15"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cnpj_empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ff27ef65-4b18-4c02-ac3f-19c7a673b8f6" x="102" y="31" width="650" height="15"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nome_empresa}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="d84279cc-7fab-4a48-be45-04bf01b12f66" x="0" y="0" width="90" height="87"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="8" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="8" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement uuid="5e0f470e-60b8-4661-a433-17657236016a" x="3" y="0" width="100" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contaContabil}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="a944fd48-0cfe-4cac-8813-8536d3aafa29" x="309" y="0" width="100" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorBruto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="1449ab9e-999e-4b03-8581-fdbdd1cc29ae" x="408" y="0" width="100" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{entradas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="1040a603-09f0-4c33-98b6-4404140a356a" x="507" y="0" width="100" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{baixas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="58d541d3-1825-4852-b672-3369d07f233c" x="632" y="0" width="100" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorExercicioAtual}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="fcc4c32c-e293-4bd8-8e3a-a8e69bd24e7f" x="739" y="0" width="100" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{depreciacaoAcumulada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="d159ded6-329b-4152-9e20-fb6efc18afe4" x="848" y="0" width="100" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorLiquido}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="b3efcd68-e89a-4ee1-b515-a5451674934c" x="0" y="14" width="960" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dotted" lineColor="#E3E1E1"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="266ea710-eb95-4f66-bf6b-0b8cb3dca9ed" x="103" y="0" width="201" height="15"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{desc_conta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="19" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="19" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="18" splitType="Stretch"/>
+	</summary>
+</jasperReport>

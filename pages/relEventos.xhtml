@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/template/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+
+<ui:define name="conteudo">
+<h:form id="form_eventos">
+<p:messages showDetail="true" id="msgEventos" closable="true"/>
+<p:panel header="Eventos Disponíveis">
+
+<h:panelGrid columns="8">
+	<h:outputLabel value="Data Inicial"/>
+	<p:calendar pattern="dd/MM/yyyy" navigator="true" showOn="both" size="10" value="#{rEventMB.dataIni}"/>
+	
+	<h:outputLabel value="Data Final"/>
+	<p:calendar pattern="dd/MM/yyyy" navigator="true" showOn="both" size="10" value="#{rEventMB.dataFim}"/>
+	
+	<h:outputLabel value="Centro de Resultado"/>
+	<p:selectOneMenu style="width:220px;" value="#{rEventMB.centro_resultado}">
+				<f:selectItem itemLabel="Escolha uma Opção" itemValue=""/>
+				<f:selectItems value="#{ctroMB.ctResultadoVo}" var="ctro"
+				                itemLabel="#{ctro.ct_resultado}" itemValue="#{ctro.ct_resultado}"/>
+				                
+			<p:ajax event="change" listener="#{ctroMB.retornarLocalizacoes}" update="local"/>
+			</p:selectOneMenu>
+			
+	<h:outputLabel value="Localização"/>
+	<p:selectOneMenu style="width:220px;" value="#{rEventMB.localizacao}" id="local">
+				<f:selectItem itemLabel="Escolha uma Opção" itemValue=""/>
+				<f:selectItems value="#{ctroMB.listaDeLocais}" var="ctro"
+				                itemLabel="#{ctro.localizacao}" itemValue="#{ctro.localizacao}"/>
+			</p:selectOneMenu>
+</h:panelGrid>
+<p:spacer height="10"/>
+<h:panelGrid columns="5">
+	
+	<h:outputText value="Incorporção por Compra"/>
+	<p:selectBooleanCheckbox value="#{rEventMB.incorporacaoCompra}"/>
+	<p:spacer width="5"/>
+	<h:outputText value="Incorporção por Inventário"/>
+	<p:selectBooleanCheckbox value="#{rEventMB.incorporacaoInventario}"/>
+	
+	
+	<h:outputText value="Incorporção por Transferência"/>
+	<p:selectBooleanCheckbox value="#{rEventMB.incorporacaoTransferencia}"/>
+	<p:spacer width="5"/>
+	<h:outputText value="Incorporção por Doação"/>
+	<p:selectBooleanCheckbox value="#{rEventMB.incorporacaoDoacao}"/>
+	
+	
+	<h:outputText value="Reavaliação"/>
+	<p:selectBooleanCheckbox value="#{rEventMB.reavaliacao}"/>
+	<p:spacer width="5"/>
+	<h:outputText value="Impairment"/>
+	<p:selectBooleanCheckbox value="#{rEventMB.impairment}"/>
+	
+	
+	<h:outputText value="Baixa"/>
+	<p:selectBooleanCheckbox value="#{rEventMB.baixa}"/>
+	<p:spacer width="5"/>
+	<h:outputText value="Baixa por Sinistro"/>
+	<p:selectBooleanCheckbox value="#{rEventMB.baixaSinistro}"/>
+		
+	<h:outputText value="Baixa por Alienação"/>
+	<p:selectBooleanCheckbox value="#{rEventMB.baixaAlienacao}"/>
+	<p:spacer width="5"/>
+	
+	<h:outputText value="Todos"/>
+	<p:selectBooleanCheckbox value="#{rEventMB.todos}"/>
+</h:panelGrid>
+
+<p:commandButton value="Gerar Relatório" icon="ui-icon-clipboard" action="#{rEventMB.gerarRelatorio}" 
+ onclick="this.form.target='_blank'" ajax="false"/>
+ 
+</p:panel>
+
+</h:form>
+</ui:define>
+</ui:composition>

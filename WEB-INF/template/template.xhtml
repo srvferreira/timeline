@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+       xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+<link rel="icon" type="image/png" href="img/favicon.png"/>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Timeline - Sistema de Gestão Patrimonial</title>
+<h:outputScript name="calendar.js" library="js"/>
+<style type="text/css">
+
+body
+{
+	font-size: 12px;
+}
+.ui-layout-north
+{
+	overflow:visible !important;
+	 z-index:20 !important;
+	 font-size: 12px;
+	
+	 
+}
+
+.ui-layout-north .ui-layout-unit-content
+{
+	background-image: url('resources/img/bg.jpg');
+	overflow:visible !important;
+	
+}
+
+.ui-layout-south .ui-layout-unit-content
+{
+	background: red;
+	color: white
+}
+
+.ui-tabs-nav
+{
+	background: #FFF;
+}
+
+.frente
+{
+	 overflow:visible !important;
+	 z-index:30 !important;
+	 font-size: 12px;
+	
+	 
+}
+</style>
+<script type="text/javascript">
+	function redirecionar()
+	{
+		window.location = "index.xhtml";
+	}
+</script>
+</h:head>
+
+
+<h:body>
+<p:layout fullPage="true">
+
+
+<p:layoutUnit position="north" size="100">
+<h:graphicImage library="img" name="logo.png" onclick="redirecionar()" title="Voltar para página inicial"/>
+<h:form>
+<div style="position: absolute; right: 60px;  top: 5px;">
+ <p:menubar >
+ 	<p:submenu label="Cadastros" icon="ui-icon-check">
+ 		<p:menuitem value="Novo Bem" url="cadBens.xhtml"/>
+ 		<p:menuitem value="Bem imóvel" url="imoveis.xhtml"/>
+ 		<p:menuitem value="Bens de Terceiros" url="bensterceiro.xhtml"/>
+ 	</p:submenu>
+ 	
+ 	<p:submenu label="Transferência" icon="ui-icon-transfer-e-w">
+ 		<p:menuitem value="Transferir Bem" url="transferir.xhtml"/>
+ 		<p:menuitem value="Gerenciar Transferências" url="gtransferir.xhtml"/>
+ 	</p:submenu>
+ 	
+ 	<p:submenu label="baixas" icon="ui-icon-arrowthick-1-s">
+ 		<p:menuitem value="Baixar Bem" url="baixa.xhtml"/>
+ 		<p:menuitem value="Gerenciar baixas" url="gbaixa.xhtml"/>
+ 	</p:submenu>
+ 	
+    <p:menuitem value="Valoração" url="valoracao.xhtml" icon="ui-icon-arrowreturnthick-1-n"/>
+ 	
+ 	<p:submenu label="Relatórios">
+ 		<p:menuitem value="Eventos" url="relEventos.xhtml"/>
+ 		<p:menuitem value="Contábeis" url="relcontabil.xhtml"/>
+ 		<p:menuitem value="Terrenos" url="terrenos.xhtml"/>
+ 		<p:menuitem value="Responsáveis" url="relResponsaveis.xhtml"/>
+ 		<p:menuitem value="Garantia" url="relatoriogarantia.xhtml"/>
+ 		<p:menuitem value="Notas Fiscais" url="relNf.xhtml"/>
+ 		<p:menuitem value="Estatísticas" url="dadosgraficos.xhtml"/>
+ 	</p:submenu>
+ 	
+ 	<p:submenu label="Inventário" icon="ui-icon-clipboard">
+ 		<p:menuitem value="Inventário" url="inventario.xhtml"/>
+ 	</p:submenu>
+ 	
+ 	<p:submenu label="Manutenção" icon="ui-icon-wrench">
+ 		<p:menuitem value="Enviar para manutenção" url="registroManutencao.xhtml"/>
+ 	</p:submenu>
+ 	
+ 	<p:submenu label="Configurações" icon="ui-icon-gear">
+ 		<p:menuitem value="Configurações" url="config.xhtml"/>
+ 		<p:menuitem value="Meus Dados" url="dadosEmpresa.xhtml" />
+ 	</p:submenu>
+ 	
+ 	<f:facet name="options">
+ 		<p:commandButton value="Sair" icon="ui-icon-extlink" action="#{loginMB.sairDoSistema}" update="@form"/>
+ 	</f:facet>
+ </p:menubar>
+ 
+</div>
+
+<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"  width="400">
+	<p:commandButton value="SIM" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+	<p:commandButton value="NÃO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+</p:confirmDialog>
+</h:form>
+</p:layoutUnit>
+
+
+<p:layoutUnit position="center">
+	<ui:insert name="conteudo">Conteudo do sistema aqui</ui:insert>
+</p:layoutUnit>
+
+		<p:layoutUnit position="south" size="30">
+			<h:panelGrid columns="2" style="font-size: 10px;">
+				<h:outputText value="Usuário:" />
+				<h:outputText value="#{principalMB.nomeUsuario}" style="font-weight: bold;" />
+			</h:panelGrid>
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>
